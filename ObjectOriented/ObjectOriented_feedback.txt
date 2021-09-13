@@ -1,0 +1,28 @@
+09/13/21 17:12
+
+Problem 1 (10 points):
+Print "No Room!" if the number of contents is greater than max_size
+ValueError: operands could not be broadcast together with shapes (5,) (6,) 
+
+Problem 2 (10 points):
+TypeError: descriptor '__init__' requires a 'super' object but received a 'str'
+
+Problem 3 (10 points):
+Check your tabs! Align your text!
+Use tabs to align your text
+Score += 8
+
+Problem 4 (15 points):
+ComplexNumber.__str__() failed for b >= 0
+ComplexNumber.__str__() failed for b < 0
+	Correct response: '(-8-30j)'
+	Student response: '-8 -30i'
+Score += 13
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 26/50 = 52.0%
+
+-------------------------------------------------------------------------------
+
