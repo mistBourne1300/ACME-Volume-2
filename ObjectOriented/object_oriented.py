@@ -68,9 +68,9 @@ class Backpack:
         return (self.name == other.name) and (self.color == other.color) and (len(self.contents) == len(other.contents))
     
     def __str__(self):
-        returnString = "Owner:\t" + self.name
-        returnString += "\nColor:\t" + self.color
-        returnString += "\nSize:\t" + str(len(self.contents))
+        returnString = "Owner:\t\t" + self.name
+        returnString += "\nColor:\t\t" + self.color
+        returnString += "\nSize:\t\t" + str(len(self.contents))
         returnString += "\nMax Size:\t" + str(self.max_size)
         returnString += "\nContents:\t" + str(self.contents)
         return returnString
@@ -144,7 +144,7 @@ class Jetpack(Backpack):
                 fuel (float): the starting fuel level
         '''
 
-        super.__init__(name, color, max_size)
+        Backpack.__init__(name, color, max_size)
         self.fuel_level = fuel
     
     def fly(self, fuel_burned):
@@ -191,13 +191,11 @@ class ComplexNumber:
         return ComplexNumber(self.real, -1* self.imag)
 
     def __str__(self):
-        string = str(self.real)
+        string = "(" +str(self.real)
         if self.imag >= 0:
-            string += " +"
-        else:
-            string += " "
+            string += "+"
         string += str(self.imag)
-        string += "i"
+        string += "j)"
         return string
     
     def __abs__(self):
@@ -220,7 +218,21 @@ class ComplexNumber:
         denominator = other * other.conjugate()
         print(numerator, denominator, sep = "\n")
         return ComplexNumber(numerator.real / denominator.real, numerator.imag / denominator.real)
-        
+
+
+def test_ComplexNumber(a, b):
+    py_cnum, my_cnum = complex(a, b), ComplexNumber(a, b)
+    # Validate the constructor.
+    if my_cnum.real != a or my_cnum.imag != b:
+        print("__init__() set self.real and self.imag incorrectly")
+    # Validate conjugate() by checking the new number's imag attribute.
+    if py_cnum.conjugate().imag != my_cnum.conjugate().imag:
+        print("conjugate() failed for", py_cnum)
+    # Validate __str__().
+    if str(py_cnum) != str(my_cnum):
+        print("__str__() failed for", py_cnum)
+        print("ComplexNumber__str__ returned ", str(my_cnum))
+# ...      
 
 if __name__ == "__main__":
     swiss_army = Backpack("chase", "red", 10)
@@ -238,8 +250,9 @@ if __name__ == "__main__":
     print(woodward)
     print("woodard == swiss_army: ", woodward == swiss_army)
     
-    '''
+    test_ComplexNumber(-1,-2)
+    
     complex_num = ComplexNumber(1,0)
     other_c_num = ComplexNumber(0,1)
     print(complex_num, other_c_num, sep = "\n")
-    print(complex_num / other_c_num)'''
+    print(complex_num / other_c_num)
