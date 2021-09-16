@@ -26,3 +26,24 @@ Total score: 26/50 = 52.0%
 
 -------------------------------------------------------------------------------
 
+09/16/21 10:23
+
+Problem 1 (10 points):
+ValueError: operands could not be broadcast together with shapes (5,) (6,) 
+
+Problem 2 (10 points):
+AttributeError: 'str' object has no attribute 'name'
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (15 points):
+Score += 15
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 30/50 = 60.0%
+
+-------------------------------------------------------------------------------
+
