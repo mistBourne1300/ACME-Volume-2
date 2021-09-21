@@ -72,6 +72,7 @@ def random_walk(max_iters=1e12):
             walk += choice(directions)
         except KeyboardInterrupt as KI:
             print(f'Process interupted at iteration {i}; walk: {walk}')
+            return walk
     print("Process Completed")
     return walk
 
@@ -180,10 +181,10 @@ class ContentFilter(object):
 
 if __name__ == "__main__":
     #arithmagic()
-    #print(random_walk(100000))
-    '''cf = ContentFilter("hello_world.txt")
-    cf.uniform("hello_world2.txt")
-    cf.reverse("hello_world3.txt", 'w', "word")
-    cf = ContentFilter("cf_example2.txt")
-    cf.transpose("cf_example2_output.txt", 'w')'''
+    print(random_walk())
+    #cf = ContentFilter("hello_world.txt")
+    #cf.uniform("hello_world2.txt")
+    #cf.reverse("hello_world3.txt", 'w', "word")
+    #cf = ContentFilter("cf_example2.txt")
+    #cf.transpose("cf_example2_output.txt", 'w')
     pass
