@@ -5,6 +5,9 @@
 <Date>
 """
 
+from typing import ValuesView
+
+
 def add(a, b):
     """Add two numbers."""
     return a + b
@@ -20,7 +23,7 @@ def divide(a, b):
 def smallest_factor(n):
     """Return the smallest prime factor of the positive integer n."""
     if n == 1: return 1
-    for i in range(2, int(n**.5)):
+    for i in range(2, int(n**.5)+1):
         if n % i == 0: return i
     return n
 
@@ -93,10 +96,10 @@ class Fraction(object):
             return float(self) == other
 
     def __add__(self, other):
-        return Fraction(self.numer*other.numer + self.denom*other.denom,
+        return Fraction(self.numer*other.denom + self.denom*other.numer,
                                                         self.denom*other.denom)
     def __sub__(self, other):
-        return Fraction(self.numer*other.numer - self.denom*other.denom,
+        return Fraction(self.numer*other.denom - self.denom*other.numer,
                                                         self.denom*other.denom)
     def __mul__(self, other):
         return Fraction(self.numer*other.numer, self.denom*other.denom)
@@ -123,7 +126,36 @@ def count_sets(cards):
             - one or more cards does not have exactly 4 digits, or
             - one or more cards has a character other than 0, 1, or 2.
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    #check to see if hand has 12 cards
+    if(len(cards) != 12):
+        raise ValueError("Hand is not exactly 12 Cards")
+    
+
+    counter = 0
+    poss_values = [0,1,2]
+    #loop through all cards
+    for i in range(len(cards)):
+        #loop through all remaining cards
+        for j in range(i+1,len(cards)):
+            #loop through all remaining cards
+            for k in range(j+1, len(cards)):
+                #check to see if each card is a string
+                if( (type(cards[i]) != str) or (type(cards[j]) != str) or (type(cards[k]) != str)):
+                    raise ValueError('Card is not str')
+                #check to make sure each string has four characters
+                elif(len(cards[i]) != 4) or len(cards[j]) != 4 or len(cards[k]) != 4:
+                    raise ValueError('Card does not have length 4')
+                #check for uniqueness
+                if cards[i] == cards[j] or cards[i] == cards[k] or cards[j] == cards[k]:
+                    raise ValueError('Cards are not unique')
+                #check for base 3 
+                for l in range(4):
+                    if((int(cards[i][l]) not in poss_values) or (int(cards[j][l]) not in poss_values) or (int(cards[k][l]) not in poss_values)):
+                        raise ValueError("Card is not base 3 int")
+                if(is_set(cards[i], cards[j], cards[k])):
+                    counter+=1
+    
+    return counter
 
 def is_set(a, b, c):
     """Determine if the cards a, b, and c constitute a set.
@@ -136,4 +168,28 @@ def is_set(a, b, c):
             and c are either the same or all different for i=1,2,3,4.
         False if a, b, and c do not form a set.
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    #make sure each card is indeed a string of length 4
+    if(type(a) != str):
+        raise ValueError('Card is not str')
+    elif(len(a) != 4):
+        raise ValueError('Card does not have length 4')
+    
+    if(type(b) != str):
+        raise ValueError('Card is not str')
+    elif(len(b) != 4):
+        raise ValueError('Card does not have length 4')
+    
+    if(type(c) != str):
+        raise ValueError('Card is not str')
+    elif(len(c) != 4):
+        raise ValueError('Card does not have length 4')
+
+    
+    poss_values = [0,1,2]
+    for i in range(4):
+        if((int(a[i]) not in poss_values) or (int(b[i]) not in poss_values) or (int(c[i]) not in poss_values)):
+            raise ValueError("Card is not base 3 int")
+        if not( (a[i] == b[i] and b[i] == c[i]) or (a[i] != b[i] and a[i] != c[i] and b[i] != c[i])):
+            return False
+    
+    return True
