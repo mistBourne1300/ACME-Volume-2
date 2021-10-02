@@ -44,3 +44,26 @@ Total score: 25/50 = 50.0%
 
 -------------------------------------------------------------------------------
 
+10/02/21 10:25
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (25 points):
+ContentFilter.reverse() failed
+ContentFilter.reverse() failed
+TypeError: __str__ returned non-string (type NoneType)
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 25/50 = 50.0%
+
+-------------------------------------------------------------------------------
+
