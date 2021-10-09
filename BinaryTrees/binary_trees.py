@@ -475,7 +475,7 @@ def prob4():
 
     # this is the size of the sample to grab. 
     # Note: stop cannot exceed 16, or random will try to grab more words than are in the vector
-    stop = 16
+    stop = 11
     sample_sizes = 2**np.arange(start = 3, stop = stop, step = 1)
     
     SLList_loading_times = []
