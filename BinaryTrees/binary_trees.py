@@ -8,6 +8,13 @@
 # These imports are used in BST.draw().
 import networkx as nx
 from networkx.drawing.nx_agraph import graphviz_layout
+import matplotlib.pyplot as plt
+import os
+import numpy as np
+import time
+from numpy.core.numeric import tensordot
+from numpy.lib import stride_tricks
+from numpy.random.mtrand import rand, random
 
 
 class SinglyLinkedListNode:
@@ -53,6 +60,16 @@ class SinglyLinkedList:
         Returns:
             (SinglyLinkedListNode): the node containing the data.
         """
+        # method for recursively finding a node
+        def check_node_data(node):
+            if node == None:
+                raise ValueError("Data not found in list")
+            elif node.value == data:
+                return node
+            return check_node_data(node.next)
+        
+        # call the above method, and return the node it found
+        return check_node_data(self.head)
         raise NotImplementedError("Problem 1 Incomplete")
 
 
@@ -118,6 +135,29 @@ class BST:
             [1, 5, 7]                           |                  (8)
             [8]                                 |
         """
+        n = BSTNode(data)
+        if self.root == None:
+            self.root = n
+            return 
+        
+        current = self.root
+        while current:
+            if n.value > current.value:
+                if not current.right:
+                    current.right = n
+                    n.prev = current
+                    return
+                else:
+                    current = current.right
+            elif n.value < current.value:
+                if not current.left:
+                    current.left = n
+                    n.prev = current
+                    return
+                else:
+                    current = current.left
+            else: # the data is a duplicate. not allowed
+                raise ValueError("cannot input duplicate data")
         raise NotImplementedError("Problem 2 Incomplete")
 
     # Problem 3
@@ -151,6 +191,117 @@ class BST:
             >>> print(t2)                       | >>> t4.remove(5)
             []                                  | ValueError: <message>
         """
+        # get the node containing the data to be removed
+        target = self.find(data)
+
+        def find_immediate_predecessor(node):
+            if not node.left:
+                raise RuntimeError(f'node {node.value} has no left child')
+            current = node.left
+            while current.right:
+                current = current.right
+            return current
+
+
+
+        
+        # if the node is a leaf, simply remove it
+        if target.left == None and target.right == None:
+            print("removing leaf")
+            
+            # if the target is the root, set root to None
+            if self.root is target:
+                print("\t removing root")
+                self.root = None
+            #otherwise, we need to see what side of the previous node the target is on
+            else:
+                parent = target.prev
+                if parent.right is target:
+                    print(f"\tremoving parent.right")
+                    parent.right = None
+                elif parent.left is  target:
+                    print('\tremoving from parent.left')
+                    parent.left = None
+                else:
+                    raise RuntimeError("parent cannot find target, target has no children")
+            
+
+            return 
+                
+        
+        # if the node has a single child, the parent adopts it
+
+        # target has only a right child
+        elif target.left == None and target.right:
+            print('removing node with right child')
+            child = target.right
+            
+            
+            # if the target is the root, assign the child to be root
+            if self.root is target:
+                print('\tremoving root')
+                self.root = child
+                child.prev = None
+
+            # the target is not the root, and has a parent
+            else:
+                parent = target.prev
+                child.prev = parent
+                if parent.left is target:
+                    print('\tremoving parent.left')
+                    parent.left = child
+                elif parent.right is target:
+                    print('\tremoving parent.right')
+                    parent.right = child
+                else:
+                    raise RuntimeError("parent cannot find target, target has right child")
+            
+            return
+        
+        # target has only the left child
+        elif target.right == None and target.left:
+            print('removing node with left child')
+            child = target.left
+
+            # if the target is the root, assign child to be root
+            if self.root is target:
+                print('\tremoving root')
+                self.root = child
+                child.prev = None
+            
+            # the target is not the root, and thus has a parent
+            else:
+                parent = target.prev
+                child.prev = parent
+                if parent.left is target:
+                    print('\tremoving parent.left')
+                    parent.left = child
+                    child.prev = parent
+                elif parent.right is target:
+                    print('\t removing parent.right')
+                    parent.right = child
+                    child.prev = parent
+                else:
+                    raise RuntimeError("parent cannot find target, target has left child")
+            
+            return
+        
+        # if the node has two children, swap it with the immediate predecessor, and then remove
+        elif target.right and target.left:
+            print('removing node with two children')
+            predecessor = find_immediate_predecessor(target)
+            print(f'Predecessor: {predecessor.value}')
+
+            temp = predecessor.value
+            self.remove(predecessor.value)
+            target.value = temp
+            
+
+            return
+        
+        else: # something went horribly wrong
+            raise RuntimeError("target somehow doesn't have any children, and has children")
+        
         raise NotImplementedError("Problem 3 Incomplete")
 
     def __str__(self):
@@ -317,4 +468,122 @@ def prob4():
     structure. Plot the number of elements in the structure versus the build
     and search times. Use log scales where appropriate.
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    english_file = open("english.txt")
+    # start_time = time.time()
+    english_words = [line.strip() for line in english_file]
+    # print(f'It took {time.time() - start_time} seconds to read all words into the vector')
+
+    # this is the size of the sample to grab. 
+    # Note: stop cannot exceed 16, or random will try to grab more words than are in the vector
+    stop = 16
+    sample_sizes = 2**np.arange(start = 3, stop = stop, step = 1)
+    
+    SLList_loading_times = []
+    SLList_search_times = []
+
+    bin_tree_loading_times = []
+    bin_tree_search_times = []
+
+    AVL_tree_loading_times = []
+    AVL_tree_search_times = []
+
+    # get the loading and search times for the three data types
+    for size in sample_sizes:
+        # print(f'size: {size}')
+        random_sample = np.random.choice(english_words, size=size, replace = False)
+        # print(random_sample)
+        search_sample_size = 5
+        search_sample = np.random.choice(random_sample, size = search_sample_size, replace=False)
+        # print(f'\tfinding {search_sample} in data')
+
+        SLList = SinglyLinkedList()
+        binary_tree = BST()
+        AVL_tree = AVL()
+
+        # timing the initialization of the singly linked list
+        # print('\t\tinitializing SLList')
+        start_time = time.time()
+        for s in random_sample:
+            SLList.append(s)
+        SLList_loading_times.append(time.time() - start_time)
+
+        # timing the search function for the singly linked list
+        start_time = time.time()
+        for word in search_sample:
+            # print(f'\t\t\tfinding {word} in SLList:')
+            word_found = SLList.iterative_find(word)
+            # print(f'\t\t\t found {word_found.value} in SLList')
+        SLList_search_times.append(time.time() - start_time)
+
+        # timing the initialization of the BST
+        # print('\t\tinitializing BST')
+        start_time = time.time()
+        for s in random_sample:
+            binary_tree.insert(s)
+        bin_tree_loading_times.append(time.time() - start_time)
+
+        # timing the search function for our BST
+        start_time = time.time()
+        for word in search_sample:
+            # print(f'\t\t\tfinding {word} in BST:')
+            word_found = binary_tree.find(word)
+            # print(f'\t\t\t found {word_found.value} in BST')
+        bin_tree_search_times.append(time.time() - start_time)
+
+        # timing the initializer for the AVL tree
+        # print('\t\tinitializing AVL')
+        start_time = time.time()
+        for s in random_sample:
+            AVL_tree.insert(s)
+        AVL_tree_loading_times.append(time.time() - start_time)
+
+        # timing the search function for the AVL tree
+        start_time = time.time()
+        for word in search_sample:
+            # print(f'\t\t\tfinding {word} in AVL:')
+            word_found = AVL_tree.find(word)
+            # print(f'\t\t\t found {word_found.value} in AVL tree')
+        AVL_tree_search_times.append(time.time() - start_time)
+    
+    plt.subplot(121)
+    plt.title("Loading Times")
+    plt.loglog(sample_sizes, SLList_loading_times, 'k', base = 2)
+    plt.loglog(sample_sizes, bin_tree_loading_times, 'r', base = 2)
+    plt.loglog(sample_sizes, AVL_tree_loading_times, 'b', base = 2)
+    plt.legend(["SLList", "Binary Tree", "AVL Tree"])
+    
+    plt.subplot(122)
+    plt.title("Search Times")
+    plt.loglog(sample_sizes, SLList_search_times, 'k', base = 2)
+    plt.loglog(sample_sizes, bin_tree_search_times, 'r', base = 2)
+    plt.loglog(sample_sizes, AVL_tree_search_times, 'b', base = 2)
+    plt.legend(["SLList", "Binary Tree", "AVL Tree"])
+
+    plt.savefig(f"Timing_Figs/load_and_search_times_stop={stop}.png")
+
+
+if __name__ == "__main__":
+    # ************** PROBLEM 1 *************
+
+    # myList = SinglyLinkedList()
+    # for i in range(10):
+    #     myList.append(i)
+    # for i in range(11):
+    #     print(myList.recursive_find(i).value)
+
+    # ************** PROBLEM 2 *************
+
+    myBST = BST()
+    for i in [4, 3, 6, 5, 7, 8, 1]:
+        print(f'{myBST}\n\n')
+        myBST.insert(i)
+
+    print(f'{myBST}')
+    data = int(input("enter the data to remove: "))
+    myBST.remove(data)
+    print(myBST)
+
+
+    # ************** PROBLEM 4 *************
+    os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/BinaryTrees")
+    prob4()
