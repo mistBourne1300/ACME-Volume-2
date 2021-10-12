@@ -1,0 +1,23 @@
+10/11/21 18:06
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (10 points):
+Score += 10
+
+Problem 3 (25 points):
+Score += 25
+
+Problem 4 (5 points):
+FileNotFoundError: [Errno 2] No such file or directory: 'Timing_Figs/load_and_search_times_stop=11.png'
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 45/50 = 90.0%
+
+Great job!
+
+-------------------------------------------------------------------------------
+
