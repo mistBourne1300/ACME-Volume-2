@@ -4,10 +4,12 @@
 <Class>
 <Date>
 """
-
+import os
 import numpy as np
+from numpy.random.mtrand import negative_binomial
 from scipy import linalg as la
 from scipy.spatial import KDTree
+from scipy import stats
 
 # Problem 1
 def exhaustive_search(X, z):
@@ -204,6 +206,10 @@ class KNeighborsClassifier:
     def fit(self, X, y):
         self.labels = y
         self.aspen = KDTree(X)
+    
+    def predict(self, z):
+        distances, indices = self.aspen.query(z, k=self.n_neighbors)
+        return stats.mode(self.labels[indices])[0][0]
 
 # Problem 6
 def prob6(n_neighbors, filename="mnist_subset.npz"):
@@ -220,6 +226,15 @@ def prob6(n_neighbors, filename="mnist_subset.npz"):
     Returns:
         (float): the classification accuracy.
     """
+    data = np.load(filename)
+    X_train = data["X_train"].astype(float)
+    y_train = data["y_train"]
+    X_test = data["X_test"].astype(float)
+    y_test = data["y_test"]
+    recognizer = KNeighborsClassifier(n_neighbors)
+    recognizer.fit(X_train, y_train)
+    predictions = [recognizer.predict(x) for x in X_test]
+    return np.mean([predictions[i] == y_test[i] for i in range(len(y_test))])
     raise NotImplementedError("Problem 6 Incomplete")
 
 
@@ -241,5 +256,15 @@ if __name__ == "__main__":
     print(maple.find(np.array([72,6,3])).value)
     print(maple.query(z))
 
+    # Problem 5
+
+    y = np.array([1,1,1,1,1,0,0,0,0,1,0])
+    prob5 = KNeighborsClassifier(2)
+    prob5.fit(data, y)
+    print(f'prob5.predict([0,0,0]) == {prob5.predict([4,0,0])}')
+
+    # problem 6
+    os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/NearestNeighbor")
+    print(f'prob 6 accuracy: {prob6(4)}')
     pass
     
