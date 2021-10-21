@@ -6,7 +6,8 @@
 """
 
 import numpy as np
-
+from scipy import linalg as la
+from scipy.spatial import KDTree
 
 # Problem 1
 def exhaustive_search(X, z):
@@ -20,7 +21,10 @@ def exhaustive_search(X, z):
         ((k,) ndarray) the element (row) of X that is nearest to z.
         (float) The Euclidean distance from the nearest neighbor to z.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    min_dist = min(la.norm(X-z, axis=1))
+    element = np.argmin(la.norm(X-z, axis=1))
+    # print(min_dist, element)
+    return min_dist, X[element]
 
 
 # Problem 2: Write a KDTNode class.
@@ -33,6 +37,14 @@ class KDTNode:
         value ((k,) ndarray): a coordinate in k-dimensional space.
         pivot (int): the dimension of the value to make comparisons on.
     """
+    def __init__(self, x):
+        if(type(x) != np.ndarray):
+            raise TypeError("x is not an ndarray")
+
+        self.value = x
+        self.left = None
+        self.right = None
+        self.pivot = None
 
 # Problems 3 and 4
 class KDT:
@@ -47,6 +59,22 @@ class KDT:
         """Initialize the root and k attributes."""
         self.root = None
         self.k = None
+    
+    def __str__(self):
+        """
+            String representation: a hierarchical list of nodes and their axes.
+        """
+
+        if self.root is None:
+            return "Empty KDT"
+        nodes, strs = [self.root], []
+        while nodes:
+            current = nodes.pop(0)
+            strs.append("{}\tpivot = {}".format(current.value, current.pivot))
+            for child in [current.left, current.right]:
+                if child:
+                    nodes.append(child)
+        return "KDT(k={})\n".format(self.k) + "\n".join(strs)
 
     def find(self, data):
         """Return the node containing the data. If there is no such node in
@@ -80,7 +108,36 @@ class KDT:
                 values in the tree.
             ValueError: if data is already in the tree
         """
-        raise NotImplementedError("Problem 3 Incomplete")
+        new_node = KDTNode(data)
+        if not self.root:
+            new_node.pivot = 0
+            self.root = new_node
+            self.k = len(data)
+            return
+        if(len(data) != self.k):
+            raise ValueError("length of data does not match k")
+        current = self.root
+        # while loop finds the node that is the parent of the data to be inserted
+        while current:
+            # if the data is a duplicate, raise value error
+            if np.allclose(current.value, data): raise ValueError("data cannot be duplicate")
+            # if the data at the pivot is greater, either insert it as the right child, 
+            # or move curr_node to the right child
+            if data[current.pivot] >= current.value[current.pivot]:
+                if not current.right:
+                    current.right = KDTNode(data)
+                    current.right.pivot = (current.pivot+1)%self.k
+                    return
+                else:
+                    current = current.right
+            else:
+                if not current.left:
+                    current.left = KDTNode(data)
+                    current.left.pivot = (current.pivot+1)%self.k
+                    return
+                else:
+                    current = current.left
+        # raise NotImplementedError("Problem 3 Incomplete")
 
     # Problem 4
     def query(self, z):
@@ -93,6 +150,25 @@ class KDT:
             ((k,) ndarray) the value in the tree that is nearest to z.
             (float) The Euclidean distance from the nearest neighbor to z.
         """
+        def KDSearch(current, nearest, dist):
+            if current is None:
+                return nearest, dist
+            x = current.value
+            i = current.pivot
+            if np.linalg.norm(x - z) < dist:
+                nearest = current
+                dist = np.linalg.norm(x - z)
+            if z[i] < x[i]:
+                nearest, dist = KDSearch(current.left, nearest, dist)
+                if z[i] + dist >= x[i]:
+                    nearest, dist = KDSearch(current.right, nearest, dist)
+            else:
+                nearest, dist = KDSearch(current.right, nearest, dist)
+                if z[i] <= x[i]:
+                    nearest, dist = KDSearch(current.left, nearest, dist)
+            return nearest, dist
+        node, dist = KDSearch(self.root, self.root, np.linalg.norm(self.root.value - z))
+        return node.value, dist
         raise NotImplementedError("Problem 4 Incomplete")
 
     def __str__(self):
@@ -122,6 +198,12 @@ class KNeighborsClassifier:
     """A k-nearest neighbors classifier that uses SciPy's KDTree to solve
     the nearest neighbor problem efficiently.
     """
+    def __init__(self,n_neighbors):
+        self.n_neighbors = n_neighbors
+    
+    def fit(self, X, y):
+        self.labels = y
+        self.aspen = KDTree(X)
 
 # Problem 6
 def prob6(n_neighbors, filename="mnist_subset.npz"):
@@ -139,3 +221,25 @@ def prob6(n_neighbors, filename="mnist_subset.npz"):
         (float): the classification accuracy.
     """
     raise NotImplementedError("Problem 6 Incomplete")
+
+
+if __name__ == "__main__":
+    # X = np.array(np.random.random((4,3)))
+    z = np.array(np.random.random(3))
+    # # print(X)
+    print(f'z: {z}')
+    # # print(f'type of z: {type(z)} type of np.ndarray: {np.ndarray}')
+    # # print(exhaustive_search(X, z))
+    # node = KDTNode(z)
+    # print(node.value)
+
+    data = np.array([[1,1,1],[0,0,5],[1,2,3],[4,3,5],[3,5,2],[6,2,5],[6,2,4],[9,5,7],[25,72,3],[4,1,6],[72,6,3]])
+    maple = KDT()
+    for datum in data:
+        #print(datum)
+        maple.insert(datum)
+    print(maple.find(np.array([72,6,3])).value)
+    print(maple.query(z))
+
+    pass
+    
