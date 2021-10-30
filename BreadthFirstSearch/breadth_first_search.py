@@ -221,6 +221,7 @@ class MovieGraph:
             
         plt.hist(path_lengths)
         plt.show()
+        print(path_lengths)
         return np.mean(path_lengths)
 
         raise NotImplementedError("Problem 6 Incomplete")
