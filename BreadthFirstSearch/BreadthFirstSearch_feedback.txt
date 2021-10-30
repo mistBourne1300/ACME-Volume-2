@@ -1,0 +1,30 @@
+10/29/21 18:09
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (10 points):
+Score += 10
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 5 (10 points):
+Score += 10
+
+Problem 6 (10 points):
+Include a title and axes labels!
+Score += 7
+
+Code Quality (5 points):
+Include some comments!
+Score += 2
+
+Total score: 44/50 = 88.0%
+
+
+Comments:
+	Happy Halloween! Do something fun this weekend!
+
+-------------------------------------------------------------------------------
+
