@@ -58,8 +58,6 @@ class Graph:
         else:
             self.d[v] = set({u})
 
-        # raise NotImplementedError("Problem 1 Incomplete")
-
     # Problem 1
     def remove_node(self, n):
         """Remove n from the graph, including all edges adjacent to it.
@@ -70,12 +68,13 @@ class Graph:
         Raises:
             KeyError: if n is not in the graph.
         """
+        # if the node is not in the graph, raise an error
         if n not in self.d:
             raise KeyError(f'n: {n} not in graph')
+        # for each node in the graph, get rid of connections to n, if there are any
         for i in self.d:
             self.d[i].discard(n)
-        self.d.pop(n)
-        #raise NotImplementedError("Problem 1 Incomplete")
+        self.d.pop(n) # remove node n
 
     # Problem 1
     def remove_edge(self, u, v):
@@ -89,9 +88,11 @@ class Graph:
             KeyError: if u or v are not in the graph, or if there is no
                 edge between u and v.
         """
+        # raise an error if u or v is not in the graph
         if v not in self.d or u not in self.d:
             raise KeyError(f"u: {u} or v: {v} not in graph")
         
+        # these will automatically raise the right error if the ndoe are not connected
         self.d[u].remove(v)
         self.d[v].remove(u)
 
@@ -110,14 +111,18 @@ class Graph:
         Raises:
             KeyError: if the source node is not in the graph.
         """
+        # we can't find the traversal from a node that doesn't exist: raise error
         if source not in self.d:
             raise KeyError(f'source {source} not in graph')
         M = set({source})
         V = list()
         Q = deque([source])
+        # while we stilll have nodes to search 
         while Q:
+            # add the current node to the list of visited nodes
             curr_node = Q.popleft()
             V.append(curr_node)
+            # add each neighbor to the list of nodes to visit
             for neigh in self.d[curr_node]:
                 if neigh not in M:
                     Q.append(neigh)
@@ -142,16 +147,21 @@ class Graph:
         Raises:
             KeyError: if the source or target nodes are not in the graph.
         """
+        # we can't find the shortest path between nodes that don't exist: raise error
         if source not in self.d or target not in self.d:
             raise KeyError(f'source: {source} or target: {target} not in graph')
         M = set({source})
         S = [[source]]
 
+        # while we still have nodes to check
         while S:
+            # add the current node to the set of nodes already visited
             path = S.pop(0)
             M.add(path[-1])
+            # if we've reached the target, return
             if path[-1] == target:
                 return path
+            # add each neighbor to the queue
             for node in self.d[path[-1]] - M:
                 S.append(path+[node])
         
@@ -184,10 +194,10 @@ class MovieGraph:
         self.actors = set()
         self.graph = nx.Graph()
         for line in filelines:
-            stripped = line.strip()
-            splitline = stripped.split(sep = '/')
-            self.movies.add(splitline[0])
-            for actor in splitline[1:]:
+            stripped = line.strip() # need the /n at the end stripped
+            splitline = stripped.split(sep = '/') # per the specs, we are guaranteed that / will only occur where we want it
+            self.movies.add(splitline[0]) # add the movie (splitline[0]) to the set of movies
+            for actor in splitline[1:]: # add each actor to the set of actors and connect them to the movie
                 self.actors.add(actor)
                 self.graph.add_edge(splitline[0], actor)
         file.close()
@@ -201,6 +211,7 @@ class MovieGraph:
             (list): a shortest path from source to target, including endpoints and movies.
             (int): the number of steps from source to target, excluding movies.
         """
+        # return the shortest path using the nx module
         return nx.shortest_path(self.graph, source, target), nx.shortest_path_length(self.graph, source, target)/2
         raise NotImplementedError("Problem 5 Incomplete")
 
@@ -215,52 +226,58 @@ class MovieGraph:
         """
         path_lengths = []
         for actor in self.actors:
-            # print(f'calculating length to {actor}')
+            # compute the length between the two actors
             if actor != target:
                 path_lengths.append(nx.shortest_path_length(self.graph, actor, target)/2)
-            
+        
+        # create a histogram for the path lengths
         plt.hist(path_lengths)
+        plt.title(f"Path Lengths to {target}")
+        plt.xlabel(f'Path length to {target}')
+        plt.ylabel('Frequency')
         plt.show()
-        print(path_lengths)
-        return np.mean(path_lengths)
+        return np.mean(path_lengths) # return the mean of the lengths
 
         raise NotImplementedError("Problem 6 Incomplete")
 
 
 if __name__ == "__main__":
-    # g = Graph()
-    # for i in range(10):
-    #     g.add_node(i)
-    # g.add_edge(9,8)
-    # g.add_node(8)
-    # g.add_edge(2,3)
-    # g.add_edge(9,10)
-    # for i in range(10,20):
-    #     g.add_edge(i+1,i)
-    # print(f'complete:\n{g}\n\n')
-    # g.remove_node(10)
-    # print(f'removed node 10:\n{g}\n\n')
-    # g.remove_edge(8,9)
-    # print(f'removed (8,9):\n{g}\n\n')
-    # g = Graph()
-    # num_nodes = 100
-    # source = 10
-    # target = 50
-    # connectivity = 3
-    # for i in range(num_nodes):
-    #     g.add_node(i)
-    #     for j in range(random.choice(range(connectivity))):
-    #         g.add_edge(i,random.choice(range(num_nodes)))
+    g = Graph()
+    for i in range(10):
+        g.add_node(i)
+    g.add_edge(9,8)
+    g.add_node(8)
+    g.add_edge(2,3)
+    g.add_edge(9,10)
+    for i in range(10,20):
+        g.add_edge(i+1,i)
+    print(f'complete:\n{g}\n\n')
+    g.remove_node(10)
+    print(f'removed node 10:\n{g}\n\n')
+    g.remove_edge(8,9)
+    print(f'removed (8,9):\n{g}\n\n')
+    g = Graph()
+    num_nodes = 100
+    source = 10
+    target = 50
+    connectivity = 3
+    for i in range(num_nodes):
+        g.add_node(i)
+        for j in range(random.choice(range(connectivity))):
+            g.add_edge(i,random.choice(range(num_nodes)))
     
-    # print(f'random {num_nodes}-node graph:\n{g}\n\n')
-    # print(f'traverse from {source}: {g.traverse(source)}\n\n')
+    print(f'random {num_nodes}-node graph:\n{g}\n\n')
+    print(f'traverse from {source}: {g.traverse(source)}\n\n')
 
-    # print(f'bfs from {source} to {target}: {g.shortest_path(source, target)}\n\n')
+    print(f'bfs from {source} to {target}: {g.shortest_path(source, target)}\n\n')
     
     os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/BreadthFirstSearch")
 
     kevin = MovieGraph(filename='movie_data_small.txt')
     print(f'num movies: {len(kevin.movies)}')
     print(f'num actors {len(kevin.actors)}\n')
-    print(kevin.path_to_actor("Viggo Mortensen", "Kevin Bacon"))
-    print(f'average path length to kevin bacon: {kevin.average_number("Viggo Mortensen")}')
+    print(kevin.path_to_actor("Liam Neeson", "Kevin Bacon"))
+    print(f'average path length to kevin bacon: {kevin.average_number("Kevin Bacon")}')
+    
+    
+    pass
