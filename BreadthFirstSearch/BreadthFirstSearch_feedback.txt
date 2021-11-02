@@ -28,3 +28,30 @@ Comments:
 
 -------------------------------------------------------------------------------
 
+11/02/21 09:57
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (10 points):
+Score += 10
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 5 (10 points):
+Score += 10
+
+Problem 6 (10 points):
+Your histogram doesn't look right. Also use the code snippet in the lab pdf to bin by integers. Great labels!
+Score += 7
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 47/50 = 94.0%
+
+Great job!
+
+-------------------------------------------------------------------------------
+
