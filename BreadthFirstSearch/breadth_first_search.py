@@ -231,7 +231,7 @@ class MovieGraph:
                 path_lengths.append(nx.shortest_path_length(self.graph, actor, target)/2)
         
         # create a histogram for the path lengths
-        plt.hist(path_lengths)
+        plt.hist(path_lengths, bins = [i-.5 for i in range(8)])
         plt.title(f"Path Lengths to {target}")
         plt.xlabel(f'Path length to {target}')
         plt.ylabel('Frequency')
