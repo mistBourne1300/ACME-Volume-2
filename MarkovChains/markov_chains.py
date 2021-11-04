@@ -6,6 +6,7 @@
 """
 
 import numpy as np
+import os
 from scipy import linalg as la
 
 
@@ -39,7 +40,14 @@ class MarkovChain:
                             to B [   .5      .2   ]
         and the label-to-index dictionary is {"A":0, "B":1}.
         """
-        raise NotImplementedError("Problem 1 Incomplete")
+        m,n = A.shape
+        if m != n: raise ValueError("A is not square matrix")
+        if not np.allclose(np.sum(A, axis = 0), np.ones(A.shape[0])): raise ValueError("Columns of A do not sum to 1")
+        self.labels = states
+        self.array = A
+        self.label_dict = dict([])
+        for i in range(len(states)):
+            self.label_dict[states[i]] = i
 
     # Problem 2
     def transition(self, state):
@@ -52,6 +60,9 @@ class MarkovChain:
         Returns:
             (str): the label of the state to transitioned to.
         """
+        col = self.array[:, self.label_dict[state]] # grabs the column corresponding to the state label passed in
+        transition = np.random.multinomial(1, col)
+        return self.labels[np.argmax(transition)]
         raise NotImplementedError("Problem 2 Incomplete")
 
     # Problem 3
@@ -66,6 +77,10 @@ class MarkovChain:
         Returns:
             (list(str)): A list of N state labels, including start.
         """
+        states = [start]
+        for i in range(N-1):
+            states.append(self.transition(states[-1]))
+        return states
         raise NotImplementedError("Problem 3 Incomplete")
 
     # Problem 3
@@ -80,6 +95,12 @@ class MarkovChain:
         Returns:
             (list(str)): A list of state labels from start to stop.
         """
+        if stop not in self.label_dict:
+            raise KeyError(f"Stop: {stop} is not in the chain")
+        path = [start]
+        while path[-1] != stop:
+            path.append(self.transition(path[-1]))
+        return path
         raise NotImplementedError("Problem 3 Incomplete")
 
     # Problem 4
@@ -96,7 +117,13 @@ class MarkovChain:
         Raises:
             ValueError: if there is no convergence within maxiter iterations.
         """
-        raise NotImplementedError("Problem 4 Incomplete")
+        x0 = np.random.random((1,self.array.shape[0])).T
+        x0 = x0 / np.sum(x0)
+        for i in range(1,maxiter+1):
+            x_prev = x0
+            x0 = np.linalg.matrix_power(self.array, i) @ x0
+            if np.linalg.norm(x0 - x_prev, ord = 1) < tol: return x0
+        raise ValueError("Markov chain did not converge")
 
 class SentenceGenerator(MarkovChain):
     """A Markov-based simulator for natural language.
@@ -110,7 +137,33 @@ class SentenceGenerator(MarkovChain):
         contents. You may assume that the file has one complete sentence
         written on each line.
         """
-        raise NotImplementedError("Problem 5 Incomplete")
+        file = open(filename)
+        lines = file.readlines()
+        stripped_lines = [line.strip() for line in lines]
+        self.labels = []
+        self.labels.append('$tart')
+        # get set of unique words in file
+        for strip in stripped_lines:
+            words = strip.split()
+            for word in words:
+                if word not in self.labels:
+                    self.labels.append(word)
+        
+        self.labels.append('$top') # labels now contains the unique words in the text file
+        self.array = np.zeros((len(self.labels), len(self.labels))) # create zeros matrix
+        self.label_dict = dict([])
+        for i in range(len(self.labels)):
+            self.label_dict[self.labels[i]] = i
+
+        #create the transition matrix
+        for strip in stripped_lines:
+            words = strip.split()
+            words.insert(0, "$tart")
+            words.append("$top")
+            for i in range(len(words)-1):
+                self.array[self.labels.index(words[i+1]), self.labels.index(words[i])] += 1
+        self.array[len(self.labels)-1, len(self.labels)-1] = 1
+        self.array /= self.array.sum(axis=0)
 
     # Problem 6
     def babble(self):
@@ -125,4 +178,36 @@ class SentenceGenerator(MarkovChain):
             >>> print(yoda.babble())
             The dark side of loss is a path as one with you.
         """
+        sentence = self.path('$tart', '$top')
+        print(sentence)
+        sentence.pop(0)
+        sentence.pop()
+        print(sentence)
+        string = ""
+        for word in sentence:
+            string += f'{word} '
+        return string[:-1]
         raise NotImplementedError("Problem 6 Incomplete")
+
+
+if __name__ == "__main__":
+    simple_weather = np.array([[.7, .6], [.3, .4]])
+    markov = MarkovChain(simple_weather, ['hot', 'cold'])
+    print(markov.label_dict)
+    print(markov.labels)
+    print(markov.array)
+    print(markov.walk('hot', 10))
+    print(markov.steady_state())
+
+    print("\n\n*****************************\n\n")
+    weather4states = np.array([[0.5, 0.3, 0.1, 0], [0.3, 0.3, 0.3, 0.3], [0.2, 0.3, 0.4, 0.5], [0, 0.1, 0.2, 0.2]])
+    markov = MarkovChain(weather4states, ['hot', 'mild', 'cold', 'freezing'])
+    print(markov.walk("hot", 10))
+    print(markov.path('hot', 'freezing'))
+    print(markov.steady_state())
+
+
+    os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/MarkovChains")
+    print("\n\n*****************************\n\n")
+    babbler = SentenceGenerator("yoda.txt")
+    print(babbler.babble())
