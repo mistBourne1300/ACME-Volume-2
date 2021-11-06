@@ -1,0 +1,29 @@
+11/05/21 17:52
+
+Problem 1 (5 points):
+TypeError: object of type 'NoneType' has no len()
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (10 points):
+TypeError: object of type 'NoneType' has no len()
+
+Problems 5-6 (15 points):
+Make sure you remove those extra print statements!
+Score += 12
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 32/50 = 64.0%
+
+
+Comments:
+	States defaults to None. How do you make the dictionary when states is None?
+
+-------------------------------------------------------------------------------
+
