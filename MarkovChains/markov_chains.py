@@ -43,7 +43,10 @@ class MarkovChain:
         m,n = A.shape
         if m != n: raise ValueError("A is not square matrix")
         if not np.allclose(np.sum(A, axis = 0), np.ones(A.shape[0])): raise ValueError("Columns of A do not sum to 1")
-        self.labels = states
+        if states:
+            self.labels = states
+        else:
+            self.labels = [f'{i}' for i in range(len(A))]
         self.array = A
         self.label_dict = dict([])
         for i in range(len(states)):
@@ -63,7 +66,7 @@ class MarkovChain:
         col = self.array[:, self.label_dict[state]] # grabs the column corresponding to the state label passed in
         transition = np.random.multinomial(1, col)
         return self.labels[np.argmax(transition)]
-        raise NotImplementedError("Problem 2 Incomplete")
+
 
     # Problem 3
     def walk(self, start, N):
@@ -81,7 +84,7 @@ class MarkovChain:
         for i in range(N-1):
             states.append(self.transition(states[-1]))
         return states
-        raise NotImplementedError("Problem 3 Incomplete")
+
 
     # Problem 3
     def path(self, start, stop):
@@ -101,7 +104,7 @@ class MarkovChain:
         while path[-1] != stop:
             path.append(self.transition(path[-1]))
         return path
-        raise NotImplementedError("Problem 3 Incomplete")
+
 
     # Problem 4
     def steady_state(self, tol=1e-12, maxiter=40):
@@ -179,15 +182,12 @@ class SentenceGenerator(MarkovChain):
             The dark side of loss is a path as one with you.
         """
         sentence = self.path('$tart', '$top')
-        print(sentence)
         sentence.pop(0)
         sentence.pop()
-        print(sentence)
         string = ""
         for word in sentence:
             string += f'{word} '
         return string[:-1]
-        raise NotImplementedError("Problem 6 Incomplete")
 
 
 if __name__ == "__main__":
