@@ -49,7 +49,7 @@ class MarkovChain:
             self.labels = [f'{i}' for i in range(len(A))]
         self.array = A
         self.label_dict = dict([])
-        for i in range(len(states)):
+        for i in range(len(self.labels)):
             self.label_dict[states[i]] = i
 
     # Problem 2
