@@ -27,3 +27,31 @@ Comments:
 
 -------------------------------------------------------------------------------
 
+11/09/21 09:10
+
+Problem 1 (5 points):
+TypeError: 'NoneType' object is not subscriptable
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (10 points):
+TypeError: 'NoneType' object is not subscriptable
+
+Problems 5-6 (15 points):
+Score += 15
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 35/50 = 70.0%
+
+
+Comments:
+	Did you see my email about the autograder?
+
+-------------------------------------------------------------------------------
+
