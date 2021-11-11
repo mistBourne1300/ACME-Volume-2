@@ -50,7 +50,7 @@ class MarkovChain:
         self.array = A
         self.label_dict = dict([])
         for i in range(len(self.labels)):
-            self.label_dict[states[i]] = i
+            self.label_dict[self.labels[i]] = i
 
     # Problem 2
     def transition(self, state):
@@ -192,22 +192,22 @@ class SentenceGenerator(MarkovChain):
 
 if __name__ == "__main__":
     simple_weather = np.array([[.7, .6], [.3, .4]])
-    markov = MarkovChain(simple_weather, ['hot', 'cold'])
+    markov = MarkovChain(simple_weather)
     print(markov.label_dict)
     print(markov.labels)
     print(markov.array)
-    print(markov.walk('hot', 10))
+    print(markov.walk('1', 10))
     print(markov.steady_state())
 
-    print("\n\n*****************************\n\n")
-    weather4states = np.array([[0.5, 0.3, 0.1, 0], [0.3, 0.3, 0.3, 0.3], [0.2, 0.3, 0.4, 0.5], [0, 0.1, 0.2, 0.2]])
-    markov = MarkovChain(weather4states, ['hot', 'mild', 'cold', 'freezing'])
-    print(markov.walk("hot", 10))
-    print(markov.path('hot', 'freezing'))
-    print(markov.steady_state())
+    # print("\n\n*****************************\n\n")
+    # weather4states = np.array([[0.5, 0.3, 0.1, 0], [0.3, 0.3, 0.3, 0.3], [0.2, 0.3, 0.4, 0.5], [0, 0.1, 0.2, 0.2]])
+    # markov = MarkovChain(weather4states, ['hot', 'mild', 'cold', 'freezing'])
+    # print(markov.walk("hot", 10))
+    # print(markov.path('hot', 'freezing'))
+    # print(markov.steady_state())
 
 
-    os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/MarkovChains")
-    print("\n\n*****************************\n\n")
-    babbler = SentenceGenerator("yoda.txt")
-    print(babbler.babble())
+    # os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/MarkovChains")
+    # print("\n\n*****************************\n\n")
+    # babbler = SentenceGenerator("yoda.txt")
+    # print(babbler.babble())
