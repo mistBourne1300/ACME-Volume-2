@@ -5,6 +5,9 @@
 <Date>
 """
 
+from glob import glob
+import os
+import subprocess
 
 # Problem 3
 def grep(target_string, file_pattern):
@@ -16,7 +19,18 @@ def grep(target_string, file_pattern):
         target_string (str): A string to search for in the files whose names
             match the file_pattern.
         file_pattern (str): Specifies which files to search.
+    
+    Returns:
+        List of filenames that contain the matched string
     """
+    list_of_files = []
+    for filename in glob(f'**/{file_pattern}', recursive = True):
+        with open(filename) as f:
+            if target_string in f.read():
+                list_of_files.append(filename)
+    
+    return list_of_files
+
     raise NotImplementedError("Problem 5 Incomplete")
 
 
@@ -25,7 +39,13 @@ def largest_files(n):
     """Return a list of the n largest files in the current directory or its
     subdirectories (from largest to smallest).
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    files_list = glob("**/*.*", recursive = True)
+    files_list = sorted(files_list, key = os.path.getsize, reverse = True)
+    files_list = files_list[:n]
+    subprocess.Popen([f'wc -l <{files_list[-1]} >> smallest.txt'], shell = True)
+    return files_list
+
+
     
 # Problem 6    
 def prob6(n = 10):
@@ -52,3 +72,4 @@ def prob6(n = 10):
            threeCounter.append(i)
    #return relevant values
    return integerCounter, twoCounter, threeCounter
+
