@@ -125,7 +125,7 @@ class MarkovChain:
         for i in range(1,maxiter+1):
             x_prev = x0
             x0 = np.linalg.matrix_power(self.array, i) @ x0
-            if np.linalg.norm(x0 - x_prev, ord = 1) < tol: return x0
+            if np.linalg.norm(x0 - x_prev, ord = 2) < tol: return x0
         raise ValueError("Markov chain did not converge")
 
 class SentenceGenerator(MarkovChain):
