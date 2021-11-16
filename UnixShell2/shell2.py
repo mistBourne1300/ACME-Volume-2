@@ -42,7 +42,7 @@ def largest_files(n):
     files_list = glob("**/*.*", recursive = True)
     files_list = sorted(files_list, key = os.path.getsize, reverse = True)
     files_list = files_list[:n]
-    subprocess.Popen([f'wc -l <{files_list[-1]} >> smallest.txt'], shell = True)
+    subprocess.Popen([f'wc -l < {files_list[-1]} >> smallest.txt'], shell = True)
     return files_list
 
 
