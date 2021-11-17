@@ -39,3 +39,41 @@ Comments:
 
 -------------------------------------------------------------------------------
 
+11/16/21 20:05
+
+Problem 1 (5 points):
+You did not append the right value for the number of words in the file
+Score += 2
+
+Problem 2 (5 points):
+File content did not match!
+Score += 0
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (10 points):
+Score += 10
+
+Problem 5 (5 points):
+Score += 5
+
+Problem 6 (5 points):
+Score += 5
+
+Problem 7 (5 points):
+File 'date_modified.txt' not found
+Score += 0
+
+Code Quality (5 points):
+Make sure you include some comments in largest_files()
+Score += 2
+
+Total score: 34/50 = 68.0%
+
+
+Comments:
+	In problem 2 you include the full file path path but you only want ./script2 etc
+
+-------------------------------------------------------------------------------
+
