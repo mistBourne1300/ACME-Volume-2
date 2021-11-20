@@ -1,0 +1,28 @@
+11/20/21 14:02
+
+Problem 1 (10 points):
+Make sure to run your cell
+Score += 0
+
+Problem 2 (10 points):
+Make sure to run your cell
+Score += 0
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (5 points):
+Since we're not doing a poisson distribution, a better label for your plots would be theta or p-value
+Score += 4
+
+Problem 5 (10 points):
+Score += 10
+
+Code Quality (5 points):
+Make sure to include comments!
+Score += 0
+
+Total score: 24/50 = 48.0%
+
+-------------------------------------------------------------------------------
+
