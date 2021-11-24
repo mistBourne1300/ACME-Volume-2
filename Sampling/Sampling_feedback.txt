@@ -26,3 +26,34 @@ Total score: 24/50 = 48.0%
 
 -------------------------------------------------------------------------------
 
+11/24/21 08:17
+
+Problem 1 (10 points):
+Make sure to run this cell for p=.2 and n=100
+Score += 0
+
+Problem 2 (10 points):
+Make sure to run this cell twice, once with p=.9, once both times with n=20
+Score += 0
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (5 points):
+Score += 5
+
+Problem 5 (10 points):
+Score += 10
+
+Code Quality (5 points):
+Don't forget comments!
+Score += 0
+
+Total score: 25/50 = 50.0%
+
+
+Comments:
+	Happy Thanksgiving!
+
+-------------------------------------------------------------------------------
+
