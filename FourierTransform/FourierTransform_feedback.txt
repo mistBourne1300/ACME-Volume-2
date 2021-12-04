@@ -1,0 +1,40 @@
+12/04/21 09:15
+
+Problem 1 (5 points):
+Make sure to label your plot, dft should be false for this one
+Score += 3
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (5 points):
+Embed the note like you did in problem 2
+Score += 0
+
+Problem 4 (5 points):
+Embed the note like you did in problem 2
+Score += 0
+
+Problem 5 (5 points):
+Use np.allclose() to print true or false if your function matches sccipy's fft
+Score += 4
+
+Problem 6 (10 points):
+Use np.allclose() to print true or false if your function matches scyipy's fft. Your array should be 8192 random samples. You should also time both of your dft and fft functions and scipy's fft function
+Score += 3
+
+Problem 7 (5 points):
+DFT plots are good, but sound wave plots don't look right
+Score += 3
+
+Problem 8 (5 points):
+Score += 5
+
+Code Quality (5 points):
+Make sure you include comments
+Score += 0
+
+Total score: 23/50 = 46.0%
+
+-------------------------------------------------------------------------------
+
