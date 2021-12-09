@@ -89,9 +89,16 @@ def random_walk(max_iters=1e12):
 
 
 
-class ContentFilter(object):   
+class ContentFilter(object): 
+    """Class for reading in file
+        
+    Attributes:
+        filename (str): The name of the file
+        contents (str): the contents of the file
+        
+    """  
+    
     # Problem 3
-
     def openFile(self):
         try:
             self.file = open(self.filename)
@@ -99,6 +106,25 @@ class ContentFilter(object):
             self.filename = input("Please enter a valid file name: ")
             self.openFile()
 
+    def calc_stats(self):
+
+        self.num_char = sum([len(line) for line in self.contents]) # calculate the number of characters
+        self.num_lines = len(self.contents)
+        if(self.contents[-1][-1] == "\n"):
+            self.num_lines+=1
+        
+        self.num_alpha = 0
+        self.num_numeric = 0
+        self.num_whitespace = 0
+        for line in self.contents:
+            for char in line:
+                if char.isalpha(): self.num_alpha += 1 # calculate the number of alphabetic characters
+                elif char.isnumeric(): self.num_numeric += 1 # calculate the number of numeric characters
+                elif char.isspace(): self.num_whitespace+=1 # calculate the number of whitespace characters
+            
+        
+        
+    
 
     def __init__(self, filename):
         """Read from the specified file. If the filename is invalid, prompt
@@ -107,6 +133,7 @@ class ContentFilter(object):
         self.filename = filename
         self.openFile()
         self.contents = self.file.readlines()
+        self.calc_stats()
         self.file.close()
 
             
@@ -147,7 +174,8 @@ class ContentFilter(object):
             for line in self.contents:
                 word_list = line.split()
                 for word in word_list[::-1]:
-                    self.file.write(word + "\n")
+                    self.file.write(word + " ")
+                self.file.write("\n")
         elif(unit == "line"):
             for line in self.contents[::-1]:
                 self.file.write(line)
@@ -177,14 +205,26 @@ class ContentFilter(object):
 
     def __str__(self):
         """String representation: info about the contents of the file."""
+        string = f"Source file:\t\t{self.filename}\n"
+        string += f'Total characters:\t{self.num_char}\n'
+        string += f'Alphabetic characters:\t{self.num_alpha}\n'
+        string += f'Numerical characters:\t{self.num_numeric}\n'
+        string += f'Whitespace characters:\t{self.num_whitespace}\n'
+        string += f'Number of lines:\t{self.num_lines}'
+        return string
+
+
 
 
 if __name__ == "__main__":
-    #arithmagic()
-    print(random_walk())
-    #cf = ContentFilter("hello_world.txt")
-    #cf.uniform("hello_world2.txt")
-    #cf.reverse("hello_world3.txt", 'w', "word")
-    #cf = ContentFilter("cf_example2.txt")
-    #cf.transpose("cf_example2_output.txt", 'w')
+    # arithmagic()
+    # print(random_walk(10000))
+    cf = ContentFilter("hello_world.txt")
+    cf.uniform("hello_world2.txt")
+    cf.reverse("hello_world3.txt", 'w', "word")
+    print(cf)
+    cf = ContentFilter("cf_example2.txt")
+    cf.transpose("cf_example2_output.txt", 'w')
+    print(cf.contents)
+    print(cf)
     pass
