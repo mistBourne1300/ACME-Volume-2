@@ -27,9 +27,11 @@ def arithmagic():
     step_1 = input("Enter a 3-digit number where the first and last "
                                            "digits differ by 2 or more: ")
     step_1_int = int(step_1)
+    # raise error if the first number step_1 is not a 3-digit number.
     if (step_1_int < 100) or (step_1_int > 999):
         raise ValueError("step one should be a 3 digit number")
     
+    # raise error if the first number's first and last digits differ by less than $2$.
     if(abs( int(step_1[0]) - int(step_1[2]) ) < 2):
         raise ValueError(f"The first and last digits of step_1 must differ by at least 2: {step_1[0]} and {step_1[2]}")
 
@@ -37,17 +39,21 @@ def arithmagic():
                                               "by reading it backwards: ")
     step_2_int = int(step_2)
     
+    # raise error if the second number step_2 is not the reverse of the first number.
     if(step_2 != step_1[::-1]):
         raise ValueError(f"step_2 must be the reverse of step_1: {step_1} -> {step_1[::-1]}")
     
     positive_difference = abs(step_1_int - step_2_int)
     step_3 = input("Enter the positive difference of these numbers: ")
 
+    # raise error if the third number step_3 is not the positive difference of the first two numbers.
     if(int(step_3) != positive_difference):
         raise ValueError(f"step_3 must be the positive difference of step_1 and step_2: {positive_difference}")
 
 
     step_4 = input("Enter the reverse of the previous result: ")
+
+    # raise error if the fourth number step_4 is not the reverse of the third number.
     if(step_4 != step_3[::-1]):
         raise ValueError(f"step_4 must be the reverse of step_3: {step_3} -> {step_3[::-1]}")
 
@@ -69,8 +75,9 @@ def random_walk(max_iters=1e12):
     directions = [1, -1]
     for i in range(int(max_iters)):
         try:
-            walk += choice(directions)
+            walk += choice(directions) # increment / decrement walk
         except KeyboardInterrupt as KI:
+            # user terminated process, print interation and return walk
             print(f'Process interupted at iteration {i}; walk: {walk}')
             return walk
     print("Process Completed")
@@ -78,17 +85,6 @@ def random_walk(max_iters=1e12):
 
 
 # Problems 3 and 4: Write a 'ContentFilter' class.
-    """Class for reading in file
-        
-    Attributes:
-        filename (str): The name of the file
-        contents (str): the contents of the file
-        
-    """
-
-
-
-
 class ContentFilter(object): 
     """Class for reading in file
         
@@ -100,6 +96,8 @@ class ContentFilter(object):
     
     # Problem 3
     def openFile(self):
+        # try opening the file. If it fails, keep prompting for a filename until it works. 
+        # Will break if the user inputs more than 1000 wron filenames (will reach python recursion depth)
         try:
             self.file = open(self.filename)
         except:
@@ -109,9 +107,9 @@ class ContentFilter(object):
     def calc_stats(self):
 
         self.num_char = sum([len(line) for line in self.contents]) # calculate the number of characters
-        self.num_lines = len(self.contents)
+        self.num_lines = len(self.contents) # calculate number of lines
         if(self.contents[-1][-1] == "\n"):
-            self.num_lines+=1
+            self.num_lines+=1               # if the last line has a trailing newline, need to add one
         
         self.num_alpha = 0
         self.num_numeric = 0
@@ -155,9 +153,11 @@ class ContentFilter(object):
         
         self.file = open(outfile, mode)
         if(case == "upper"):
+            # write all data in upper format
             for line in self.contents:
                 self.file.write(line.upper())
         elif(case == "lower"):
+            # write all data in lower format
             for line in self.contents:
                 self.file.write(line.lower())
         self.file.close()
@@ -173,11 +173,11 @@ class ContentFilter(object):
         if unit == "word":
             for line in self.contents:
                 word_list = line.split()
-                for word in word_list[::-1]:
+                for word in word_list[::-1]: # will get the reversed list, which we then write to the file
                     self.file.write(word + " ")
                 self.file.write("\n")
         elif(unit == "line"):
-            for line in self.contents[::-1]:
+            for line in self.contents[::-1]: # will get the reversed list, which we then write to the file
                 self.file.write(line)
         
         self.file.close()
@@ -187,13 +187,14 @@ class ContentFilter(object):
     def transpose(self, outfile, mode='w'):
         """Write the transposed version of the data to the outfile."""
         self.check_mode(mode)
+        # create a numpy array to transpose
         transmogrify = []
         for line in self.contents:
             line_list = line.split()
             transmogrify.append(line_list)
         transmogrify = np.array(transmogrify)
-        transmogrify = np.transpose(transmogrify)
-        print(transmogrify)
+        transmogrify = np.transpose(transmogrify) # get the transposed version of the array
+        # write the transposed array to the outfile
         self.file = open(outfile, mode)
         for line in transmogrify:
             for word in line:
