@@ -67,3 +67,27 @@ Total score: 25/50 = 50.0%
 
 -------------------------------------------------------------------------------
 
+12/17/21 15:05
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (5 points):
+random_walk() failed to handle the KeyboardInterrupt
+Did not print "Process Interrupted at iteration <i> after keyboard interrupt
+Score += 2
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (25 points):
+ContentFilter.reverse() failed
+Score += 22
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 44/50 = 88.0%
+
+-------------------------------------------------------------------------------
+
