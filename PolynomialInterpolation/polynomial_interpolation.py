@@ -28,6 +28,7 @@ def lagrange(xint, yint, points):
     Returns:
         ((m,) ndarray): The value of the polynomial at the specified points.
     """
+    # helper function to compute Lj's
     def compute_demon(x,j):
         product_array = [x-xint[k] for k in range(len(xint))]
         return np.product(np.delete(product_array, j))
@@ -35,6 +36,7 @@ def lagrange(xint, yint, points):
     demons = [compute_demon(xint[j], j) for j in range(len(xint))]
     demons = np.array(demons)
 
+    # matrix of Lj's
     mat = []
     for point in points:
         submat = [compute_demon(point, j) for j in range(len(xint))]
@@ -67,6 +69,7 @@ class Barycentric:
         """
         self.xint = xint
         self.yint = yint
+        # calculating the bary weights from the homework
         def bary_weights(points):
             """Computes the barycentric weights for a given set of distinct points
             {x_0,...,x_n} (the elements of parameter x).
@@ -94,10 +97,12 @@ class Barycentric:
         """
         numerator = 0
         denominatorinator = 0
+        # evaluate using the weights already computed
         for j in range(len(self.xint)):
             numerator += self.yint[j] * self.weights[j]/(points-self.xint[j])
             denominatorinator += self.weights[j]/(points-self.xint[j])
         
+        # return the summed numerator and summed denominator
         return numerator / denominatorinator
 
     # Problem 4
@@ -119,6 +124,7 @@ class Barycentric:
         self.weights = list(self.weights)
         self.yint = list(self.yint)
 
+        # pop off from the x- and y-int lists calculate the new weights, and append them to the weights list
         while xint:
             self.yint.append(yint.pop())
             i = xint.pop()
@@ -145,9 +151,11 @@ def prob5():
     extremal points. Plot the absolute error of the interpolation with each
     method on a log-log plot.
     """
+    # get domain and values for the actual function
     domain = np.linspace(-1,1, 400)
     rung = runge(domain)
     power = 2**np.array([2,3,4,5,6,7,8])
+    # append the errors to the error arrays
     equal_err = []
     cheby_err = []
     for n in power:
@@ -164,10 +172,13 @@ def prob5():
         # plt.plot(domain, interpol(domain), 'k')
         # plt.show()
 
+    # plot and show
     plt.loglog(power, equal_err, base = 2)
     plt.loglog(power, cheby_err, base = 2)
     plt.xlabel("number of points")
     plt.ylabel("error")
+    plt.legend(['equal spacing', 'cheby spacing'])
+    plt.title('error in interpolation')
     plt.show()
 
 
@@ -183,12 +194,16 @@ def chebyshev_coeffs(f, n):
     Returns:
         coeffs ((n+1,) ndarray): Chebyshev coefficients for the interpolating polynomial.
     """
+    # cheby extremizers
     cheby_points = [np.cos(j*np.pi/n) for j in range(n+1)]
-    for p in (cheby_points[-2:0:-1]):
+    # add in the extra ones for cyclicity
+    for p in cheby_points[-2:0:-1]:
         cheby_points.append(p)
     cheby_points = np.array(cheby_points)
+    # compute fft and multiply by constants
     ak = 1/(2*n) * fft(f(cheby_points)).real
     ak[1:n] *= 2
+    # return only the first n+1
     return ak[:n+1]
 
 
@@ -204,19 +219,28 @@ def prob7(n):
     """
     fx = lambda a,b,n: .5*(a+b + (a-b) * np.cos(np.arange(n+1) * np.pi / n))
     
+    # load the data and compute the closest points to the cheby extremizers
     data = np.load("airdata.npy")
-    print(len(data))
     a,b = 0,366-1/24
     domain = np.linspace(a,b, 8784)
     points = fx(a,b,n)
     temp = np.abs(points - domain.reshape(8784,1))
     temp2 = np.argmin(temp, axis = 0)
 
+    # create the BarycentricInterpolator class and plot
     poly = BarycentricInterpolator(domain[temp2], data[temp2])
+    plt.subplot(211)
     plt.plot(domain, data, 'r')
+    plt.xlabel('time')
+    plt.ylabel('air quality')
+    plt.subplot(212)
     plt.plot(domain, poly(domain), 'k')
+    plt.xlabel('time')
+    plt.ylabel('air quality')
+    plt.suptitle('air quality over time')
+    plt.tight_layout()
     plt.show()
-    raise NotImplementedError("Problem 7 Incomplete")
+
 
 
 if __name__ == "__main__":
@@ -251,4 +275,5 @@ if __name__ == "__main__":
 
     # print(f'mine: {chebyshev_coeffs(f, 4)}')
 
-    prob7(75 )
+    prob7(50)
+    pass
