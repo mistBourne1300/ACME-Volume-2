@@ -11,6 +11,7 @@ import numpy as np
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
+from scipy.integrate import nquad
 
 
 class GaussianQuadrature:
@@ -133,7 +134,7 @@ class GaussianQuadrature:
             G_mat.append(row)
         G_mat = np.array(G_mat)
         # return the dot product and matrix product
-        return np.dot(self.weights, G_mat@self.weights)
+        return np.dot(self.weights, G_mat@self.weights) * (b1-a1)*(b2-a2)/4
 
 
 # Problem 5
@@ -185,7 +186,6 @@ def prob5():
 if __name__ == "__main__":
     f = lambda x, y: x**2 + y**2 + x*y
     func = lambda x: x**2
-    gq = GaussianQuadrature(50, 'chebyshev')
-    print(gq.basic(func))
-    print(gq.integrate2d(f,0,2,0,2))
-    prob5()
+    gq = GaussianQuadrature(500, 'chebyshev')
+    print(f'scipy: {nquad(f, [[0,2],[0,2]])[0]}')
+    print(f'mine: {gq.integrate2d(f,0,1,0,2)}')
