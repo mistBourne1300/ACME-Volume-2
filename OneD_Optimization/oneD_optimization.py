@@ -28,22 +28,28 @@ def golden_section(f, a, b, tol=1e-5, maxiter=15):
         (bool): Whether or not the algorithm converged.
         (int): The number of iterations computed.
     """
+    # get the midpoint and define the golden ratio
     x0 = (a+b)/2
     midas = (1+np.sqrt(5))/2
     for i in range(maxiter):
+        # get c, a tilda and b tilda
         c = (b-a)/midas
         _a = b-c
         _b = a+c
+
+        # reassign a or be accordingly
         if f(_a) <= f(_b):
             b = _b
         else:
             a = _a
         
+        # get new midpoint and check to see if we should stop
         x1 = (a+b)/2
         if np.abs(x0 - x1) < tol:
             return x1, True, i+1
         x0 = x1
     
+    # failed to converge
     return x1, False, maxiter
 
 
@@ -66,11 +72,14 @@ def newton1d(df, d2f, x0, tol=1e-5, maxiter=15):
     """
 
     for i in range(maxiter):
+        # get next point 
         x1 = x0 - df(x0)/d2f(x0)
+        # check to see if we should stop
         if np.abs(x0 - x1) < tol:
             return x1, True, i+1
+        # reassign variables
         x0 = x1
-    
+    # failed to converge
     return x1, False, maxiter
 
 
@@ -91,12 +100,17 @@ def secant1d(df, x0, x1, tol=1e-5, maxiter=15):
         (int): The number of iterations computed.
     """
     for i in range(maxiter):
+        # get the next point 
         x2 = (x0*df(x1) - x1*df(x0))/(df(x1) - df(x0))
+
+        # check to see if we should stop
         if np.abs(x2 - x1) < tol:
             return x2, True, i+1
+        # reassign variables
         x0 = x1
         x1 = x2
     
+    # failed to converge
     return x2, False, maxiter
 
 
@@ -117,11 +131,14 @@ def backtracking(f, Df, x, p, alpha=1, rho=.9, c=1e-4):
     Returns:
         alpha (float): Optimal step size.
     """
+    # get direction and point of search
     dfp = Df(x).T@p
     fx = f(x)
+    # get optimal alpha
     while (f(x+alpha*p) > fx + c*alpha*dfp):
         alpha = rho*alpha
 
+    # i hope this step is obvious
     return alpha
 
 if __name__ == "__main__":
