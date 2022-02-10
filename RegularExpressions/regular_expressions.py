@@ -49,6 +49,7 @@ def prob4():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
+    return re.compile(r'[a-zA-z_][a-zA-z0-9_] *(= *[[0-9]|')
     raise NotImplementedError("Problem 4 Incomplete")
 
 # Problem 5
