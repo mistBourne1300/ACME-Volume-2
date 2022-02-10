@@ -5,6 +5,8 @@
 <Date>
 """
 
+import re
+
 # Problem 1
 def prob1():
     """Compile and return a regular expression pattern object with the
@@ -13,7 +15,8 @@ def prob1():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    return re.compile("python")
+
 
 # Problem 2
 def prob2():
@@ -23,7 +26,7 @@ def prob2():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    return re.compile(r"\^\{@\}\(\?\)\[%\]\{\.\}\(\*\)\[\_\]\{\&\}\$")
 
 # Problem 3
 def prob3():
@@ -36,7 +39,7 @@ def prob3():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    return re.compile(r'^(Book|Mattress|Grocery) (store|supplier)$')
 
 # Problem 4
 def prob4():
@@ -77,3 +80,8 @@ def prob6(filename="fake_contacts.txt"):
     """
 
     raise NotImplementedError("Problem 6 Incomplete")
+
+
+if __name__ == "__main__":
+    print(bool(prob1().search("this is python for ya")))
+    print(bool(prob2().search("^{@}(?)[%]{.}(*)[_]{&}$")))
