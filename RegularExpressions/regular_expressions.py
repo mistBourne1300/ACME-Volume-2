@@ -49,8 +49,7 @@ def prob4():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    return re.compile(r'[a-zA-z_][a-zA-z0-9_] *(= *[[0-9]|')
-    raise NotImplementedError("Problem 4 Incomplete")
+    return re.compile(r'^[a-zA-z_][a-zA-z0-9_]* *(= *[[0-9]*\.?[0-9]*|\'[^\']\'|[a-zA-z_][a-zA-z0-9_]*])?')
 
 # Problem 5
 def prob5(code):
@@ -86,3 +85,12 @@ def prob6(filename="fake_contacts.txt"):
 if __name__ == "__main__":
     print(bool(prob1().search("this is python for ya")))
     print(bool(prob2().search("^{@}(?)[%]{.}(*)[_]{&}$")))
+
+    print("\nprob4 matches:")
+    lies = prob4()
+    for string in ["Mouse", 'compile', '_123456789', '__x__', 'while', 'max=4.2', "string= ''", "num_guesses"]:
+        print(f'{string}: {bool(lies.search(string))}')
+    
+    print("\n prob4 non matches:")
+    for string in ['3rats', 'err*r', 'sq(x)', 'sleep()', ' x', '300', 'is_4(value==4)', "pattern = r'^one|two fish$'"]:
+        print(f'{string}: {bool(lies.search(string))}')
