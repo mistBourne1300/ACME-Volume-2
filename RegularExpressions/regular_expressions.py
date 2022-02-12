@@ -49,7 +49,8 @@ def prob4():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    return re.compile(r'^[a-zA-z_][a-zA-z0-9_]* *(= *[[0-9]*\.?[0-9]*|\'[^\']\'|[a-zA-z_][a-zA-z0-9_]*])?')
+    # r"^[a-zA-z_][a-zA-z0-9_]* *(= *[[0-9]*\.?[0-9]*|'[^']?'|[a-zA-z_][a-zA-z0-9_]*])?$"
+    return re.compile(r"^[a-zA-z_][a-zA-z0-9_]* *(= *[[0-9]*\.?[0-9]*|'[^']?'|[a-zA-z_][a-zA-z0-9_]*])?$")
 
 # Problem 5
 def prob5(code):
@@ -83,8 +84,8 @@ def prob6(filename="fake_contacts.txt"):
 
 
 if __name__ == "__main__":
-    print(bool(prob1().search("this is python for ya")))
-    print(bool(prob2().search("^{@}(?)[%]{.}(*)[_]{&}$")))
+    # print(bool(prob1().search("this is python for ya")))
+    # print(bool(prob2().search("^{@}(?)[%]{.}(*)[_]{&}$")))
 
     print("\nprob4 matches:")
     lies = prob4()
