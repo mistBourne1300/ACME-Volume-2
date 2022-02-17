@@ -15,6 +15,7 @@ def prob1():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
+    # return 
     return re.compile("python")
 
 # Problem 2
@@ -25,6 +26,7 @@ def prob2():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
+    # return 
     return re.compile(r"\^\{@\}\(\?\)\[%\]\{\.\}\(\*\)\[\_\]\{\&\}\$")
 
 # Problem 3
@@ -38,6 +40,7 @@ def prob3():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
+    # return 
     return re.compile(r'^(Book|Mattress|Grocery) (store|supplier)$')
 
 # Problem 4
@@ -50,6 +53,7 @@ def prob4():
     """
     # python identifier r'[a-zA-Z_]\w*'
     # r"^[a-zA-z_][a-zA-z0-9_]* *(= *[[0-9]*\.?[0-9]*|'[^']?'|[a-zA-z_][a-zA-z0-9_]*])?$"
+    # return 
     return re.compile(r"^[a-zA-Z_]\w* *(= *(\d*\.?\d*|'[^']*'|[a-zA-Z_]\w*))?$")
 
 # Problem 5
@@ -64,7 +68,9 @@ def prob5(code):
     Returns:
         (str): code, but with the colons inserted in the right places.
     """
+    # compile
     cryptic = re.compile(r"((if|elif|else|for|while|try|except|finally|with|def|class)[^\n]*)\n")
+    # return the subbed code
     return cryptic.sub(r"\1:\n", code)
 
 # Problem 6
@@ -95,19 +101,21 @@ def prob6(filename="fake_contacts.txt"):
     contacts = dict()
     for line in file.readlines():
         name = names.findall(line)[0]
-
+        # if a phone number is found, instantiate phone with the number, otherwise it is None
         if phones.search(line):
             phone = phones.findall(line)[0]
             phone = area_code.sub(r"(\1)", phone)
         else:
             phone = None
         
+        # if an email is found, instantiate email with the address, otherwise it is None
         if emails.search(line):
             email = emails.findall(line)[0]
         else:
             email = None
 
         # i know this is cursed. I have tried. You'll have to deal with it, as I have dealt with it.
+        # if a birthday is found, instantiate bday with the datestring, otherwise it is None
         if birthdays.search(line):
             birthday = birthdays.findall(line)[0]
             # print(birthday)
@@ -133,7 +141,7 @@ def prob6(filename="fake_contacts.txt"):
             bday = f'{m}/{d}/{y}'
         else:
             bday = None
-        print(f'\n{name}\n\tphone: {phone}\n\temail: {email}\n\tbirthday: {bday}')
+        # print(f'\n{name}\n\tphone: {phone}\n\temail: {email}\n\tbirthday: {bday}')
         cont = {'birthday':bday, 'email':email, 'phone':phone}
         contacts[name] = cont
 
@@ -196,4 +204,4 @@ print(p)"""
         "I dunno, just testing"
 """
     # print(prob5(large_block))
-    print(prob6())
+    # print(prob6()["Zoe Walker"]["phone"])
