@@ -127,10 +127,11 @@ def prob4(filename="linregression.txt",
     """
     dat = np.loadtxt("linregression.txt")
     y = dat[:,0]
-    A = dat[:,1:]
+    A = dat
+    A[:,0] = 1
     Q = A.T@A
     newbie = A.T@y
-    return conjugate_gradient(Q,newbie,x0[1:])[0]
+    return conjugate_gradient(Q,newbie,x0)[0]
 
 
 
@@ -194,28 +195,28 @@ def prob6(filename="challenger.npy", guess=np.array([20., -1.])):
 
 
 if __name__ == "__main__":
-    # PROBLEM 1
-    f1 = lambda x: x[0]**4 + x[1]**4 + x[2]**4
-    rosy = lambda x: 100*(x[1] - x[0]**2)**2 + (1-x[0])**2
+    # # PROBLEM 1
+    # f1 = lambda x: x[0]**4 + x[1]**4 + x[2]**4
+    # rosy = lambda x: 100*(x[1] - x[0]**2)**2 + (1-x[0])**2
 
-    x01 = np.array([1.,1.,1.])
-    x0rosy = np.array([-2.,2.])
-    print(steepest_descent(f1, grad(f1), x01))
-    print(steepest_descent(rosy, grad(rosy), x0rosy, maxiter = int(1e7)))
+    # x01 = np.array([1.,1.,1.])
+    # x0rosy = np.array([-2.,2.])
+    # print(steepest_descent(f1, grad(f1), x01))
+    # print(steepest_descent(rosy, grad(rosy), x0rosy, maxiter = int(1e7)))
 
-    # PROBLEM 2
-    Q = np.array(   [[2.,0.],
-                    [0.,4.]])
-    b = np.array([1,8])
-    x0 = np.array([1,1])
-    print(conjugate_gradient(Q,b,x0))
+    # # PROBLEM 2
+    # Q = np.array(   [[2.,0.],
+    #                 [0.,4.]])
+    # b = np.array([1,8])
+    # x0 = np.array([1,1])
+    # print(conjugate_gradient(Q,b,x0))
  
-    # PROBLEM 3
-    print(nonlinear_conjugate_gradient(rosy, grad(rosy), x0rosy, maxiter = 500))
+    # # PROBLEM 3
+    # print(nonlinear_conjugate_gradient(rosy, grad(rosy), x0rosy, maxiter = 500))
 
     # PROBLEM 4
     os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/GradientMethods")
     print(prob4())
 
-    # PROBLEMS 5 and 6
-    print(prob6())
+    # # PROBLEMS 5 and 6
+    # print(prob6())
