@@ -88,8 +88,8 @@ def prob6(filename="fake_contacts.txt"):
     """
     # compile objects to get each string type
     names = re.compile(r"^[a-zA-Z]+ [A-Z]\.? ?[a-zA-Z]+")
-    phones = re.compile(r"1?-?\(?\d{3}\)?-?\d{3}-\d{4}")
-    emails = re.compile(r"\b[^ ]*@[^ ]*\.[a-zA-Z]{3}\b")
+    phones = re.compile(r"1?-?\(?\d{,3}\)?-?\d{3}-\d{4}")
+    emails = re.compile(r"\b[^ ]*@[^ ]*\.[a-zA-Z]{2,3}\b")
     birthdays = re.compile(r"\b\d{,2}/\d{,2}/\d{2,4}")
 
     # object to get and sub in the area codes
@@ -204,4 +204,4 @@ print(p)"""
         "I dunno, just testing"
 """
     # print(prob5(large_block))
-    # print(prob6()["Zoe Walker"]["phone"])
+    print(prob6()["Zoe Walker"]["phone"])
