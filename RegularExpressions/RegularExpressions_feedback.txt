@@ -27,3 +27,617 @@ Total score: 19/50 = 38.0%
 
 -------------------------------------------------------------------------------
 
+02/17/22 09:56
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (5 points):
+Score += 5
+
+Problem 4 (5 points):
+Score += 5
+
+Problem 5 (5 points):
+Score += 5
+
+Problem 6 (20 points):
+incorrect phone
+	Correct response: '(593)299-4615'
+	Student response: '(593)-299-4615'
+incorrect phone
+	Correct response: '(389)133-7641'
+	Student response: '(389)-133-7641'
+incorrect phone
+	Correct response: '(707)824-4926'
+	Student response: '(707)-824-4926'
+incorrect phone
+	Correct response: '(771)810-4840'
+	Student response: '(771)-810-4840'
+incorrect phone
+	Correct response: '(940)688-1884'
+	Student response: '(940)-688-1884'
+incorrect phone
+	Correct response: '(274)233-2734'
+	Student response: '(274)-233-2734'
+incorrect phone
+	Correct response: '(713)191-3522'
+	Student response: '(713)-191-3522'
+incorrect phone
+	Correct response: '(668)210-4552'
+	Student response: '(668)-210-4552'
+incorrect phone
+	Correct response: '(608)675-0660'
+	Student response: '(608)-675-0660'
+incorrect phone
+	Correct response: '(251)430-1483'
+	Student response: '(251)-430-1483'
+incorrect phone
+	Correct response: '(852)523-2098'
+	Student response: '(852)-523-2098'
+incorrect phone
+	Correct response: '(488)732-1384'
+	Student response: '(488)-732-1384'
+incorrect phone
+	Correct response: '(576)458-2732'
+	Student response: '(576)-458-2732'
+incorrect phone
+	Correct response: '(820)304-7413'
+	Student response: '(820)-304-7413'
+incorrect phone
+	Correct response: '(589)626-5567'
+	Student response: '(589)-626-5567'
+incorrect phone
+	Correct response: '(968)688-0639'
+	Student response: '(968)-688-0639'
+incorrect phone
+	Correct response: '(110)234-6810'
+	Student response: '(110)-234-6810'
+incorrect phone
+	Correct response: '(192)692-0886'
+	Student response: '(192)-692-0886'
+incorrect phone
+	Correct response: '(964)888-7938'
+	Student response: '(964)-888-7938'
+incorrect phone
+	Correct response: '(343)451-9193'
+	Student response: '(343)-451-9193'
+incorrect phone
+	Correct response: '(586)683-6961'
+	Student response: '(586)-683-6961'
+incorrect phone
+	Correct response: '(579)132-9410'
+	Student response: '(579)-132-9410'
+incorrect phone
+	Correct response: '(647)831-5816'
+	Student response: '(647)-831-5816'
+incorrect phone
+	Correct response: '(657)870-4656'
+	Student response: '(657)-870-4656'
+incorrect phone
+	Correct response: '(522)495-9002'
+	Student response: '(522)-495-9002'
+incorrect phone
+	Correct response: '(522)627-1461'
+	Student response: '(522)-627-1461'
+incorrect phone
+	Correct response: '(525)462-7801'
+	Student response: '(525)-462-7801'
+incorrect phone
+	Correct response: '(226)365-8046'
+	Student response: '(226)-365-8046'
+incorrect phone
+	Correct response: '(734)629-8953'
+	Student response: '(734)-629-8953'
+incorrect phone
+	Correct response: '(878)804-1051'
+	Student response: '(878)-804-1051'
+incorrect phone
+	Correct response: '(213)444-9049'
+	Student response: '(213)-444-9049'
+incorrect phone
+	Correct response: '(598)862-0368'
+	Student response: '(598)-862-0368'
+incorrect phone
+	Correct response: '(216)114-0949'
+	Student response: '(216)-114-0949'
+incorrect phone
+	Correct response: '(201)669-6134'
+	Student response: '(201)-669-6134'
+incorrect phone
+	Correct response: '(672)678-2641'
+	Student response: '(672)-678-2641'
+incorrect phone
+	Correct response: '(370)582-6890'
+	Student response: '(370)-582-6890'
+incorrect phone
+	Correct response: '(278)488-8058'
+	Student response: '(278)-488-8058'
+incorrect phone
+	Correct response: '(910)522-5586'
+	Student response: '(910)-522-5586'
+incorrect phone
+	Correct response: '(812)661-5282'
+	Student response: '(812)-661-5282'
+incorrect phone
+	Correct response: '(832)508-8040'
+	Student response: '(832)-508-8040'
+incorrect phone
+	Correct response: '(836)825-6915'
+	Student response: '(836)-825-6915'
+incorrect phone
+	Correct response: '(237)600-5131'
+	Student response: '(237)-600-5131'
+incorrect phone
+	Correct response: '(598)625-6448'
+	Student response: '(598)-625-6448'
+incorrect phone
+	Correct response: '(129)736-3405'
+	Student response: '(129)-736-3405'
+incorrect phone
+	Correct response: '(241)485-9360'
+	Student response: '(241)-485-9360'
+incorrect phone
+	Correct response: '(811)608-3083'
+	Student response: '(811)-608-3083'
+incorrect phone
+	Correct response: '(753)869-1915'
+	Student response: '(753)-869-1915'
+incorrect phone
+	Correct response: '(803)562-7252'
+	Student response: '(803)-562-7252'
+incorrect phone
+	Correct response: '(794)945-2600'
+	Student response: '(794)-945-2600'
+incorrect phone
+	Correct response: '(869)502-2237'
+	Student response: '(869)-502-2237'
+incorrect phone
+	Correct response: '(393)908-3075'
+	Student response: '(393)-908-3075'
+incorrect phone
+	Correct response: '(908)930-7650'
+	Student response: '(908)-930-7650'
+incorrect phone
+	Correct response: '(829)224-2686'
+	Student response: '(829)-224-2686'
+incorrect phone
+	Correct response: '(264)170-9310'
+	Student response: '(264)-170-9310'
+incorrect phone
+	Correct response: '(505)677-4055'
+	Student response: '(505)-677-4055'
+incorrect phone
+	Correct response: '(660)481-9972'
+	Student response: '(660)-481-9972'
+incorrect phone
+	Correct response: '(874)779-4778'
+	Student response: '(874)-779-4778'
+incorrect phone
+	Correct response: '(698)107-6388'
+	Student response: '(698)-107-6388'
+incorrect phone
+	Correct response: '(267)477-4610'
+	Student response: '(267)-477-4610'
+incorrect phone
+	Correct response: '(837)842-8791'
+	Student response: '(837)-842-8791'
+incorrect phone
+	Correct response: '(308)920-6077'
+	Student response: '(308)-920-6077'
+incorrect phone
+	Correct response: '(345)739-5757'
+	Student response: '(345)-739-5757'
+incorrect phone
+	Correct response: '(836)953-3156'
+	Student response: '(836)-953-3156'
+incorrect phone
+	Correct response: '(145)152-5566'
+	Student response: '(145)-152-5566'
+incorrect phone
+	Correct response: '(763)138-7555'
+	Student response: '(763)-138-7555'
+incorrect phone
+	Correct response: '(319)933-1674'
+	Student response: '(319)-933-1674'
+incorrect phone
+	Correct response: '(412)755-5598'
+	Student response: '(412)-755-5598'
+incorrect phone
+	Correct response: '(296)932-3134'
+	Student response: '(296)-932-3134'
+incorrect phone
+	Correct response: '(800)665-9850'
+	Student response: '(800)-665-9850'
+incorrect phone
+	Correct response: '(123)456-7890'
+	Student response: '(123)-456-7890'
+incorrect phone
+	Correct response: '(301)672-1807'
+	Student response: '(301)-672-1807'
+incorrect phone
+	Correct response: '(597)345-9575'
+	Student response: '(597)-345-9575'
+incorrect phone
+	Correct response: '(510)437-1478'
+	Student response: '(510)-437-1478'
+incorrect phone
+	Correct response: '(666)794-3078'
+	Student response: '(666)-794-3078'
+incorrect phone
+	Correct response: '(282)190-9655'
+	Student response: '(282)-190-9655'
+incorrect phone
+	Correct response: '(744)621-3089'
+	Student response: '(744)-621-3089'
+incorrect phone
+	Correct response: '(999)977-7744'
+	Student response: '(999)-977-7744'
+incorrect phone
+	Correct response: '(293)936-8657'
+	Student response: '(293)-936-8657'
+incorrect phone
+	Correct response: '(388)987-1946'
+	Student response: '(388)-987-1946'
+incorrect phone
+	Correct response: '(287)637-4901'
+	Student response: '(287)-637-4901'
+incorrect phone
+	Correct response: '(770)494-5083'
+	Student response: '(770)-494-5083'
+incorrect phone
+	Correct response: '(988)193-2741'
+	Student response: '(988)-193-2741'
+incorrect phone
+	Correct response: '(690)270-6723'
+	Student response: '(690)-270-6723'
+incorrect phone
+	Correct response: '(272)983-3107'
+	Student response: '(272)-983-3107'
+incorrect phone
+	Correct response: '(615)831-6574'
+	Student response: '(615)-831-6574'
+incorrect phone
+	Correct response: '(353)480-6530'
+	Student response: '(353)-480-6530'
+incorrect phone
+	Correct response: '(324)839-9223'
+	Student response: '(324)-839-9223'
+incorrect phone
+	Correct response: '(526)513-0543'
+	Student response: '(526)-513-0543'
+incorrect phone
+	Correct response: '(958)441-8617'
+	Student response: '(958)-441-8617'
+incorrect phone
+	Correct response: '(351)471-0705'
+	Student response: '(351)-471-0705'
+incorrect phone
+	Correct response: '(569)685-8553'
+	Student response: '(569)-685-8553'
+incorrect phone
+	Correct response: '(889)608-2115'
+	Student response: '(889)-608-2115'
+incorrect phone
+	Correct response: '(891)357-4327'
+	Student response: '(891)-357-4327'
+incorrect phone
+	Correct response: '(147)788-1661'
+	Student response: '(147)-788-1661'
+incorrect phone
+	Correct response: '(454)236-9434'
+	Student response: '(454)-236-9434'
+incorrect phone
+	Correct response: '(304)650-2384'
+	Student response: '(304)-650-2384'
+incorrect phone
+	Correct response: '(987)719-0507'
+	Student response: '(987)-719-0507'
+incorrect phone
+	Correct response: '(197)774-8989'
+	Student response: '(197)-774-8989'
+incorrect phone
+	Correct response: '(423)855-4451'
+	Student response: '(423)-855-4451'
+incorrect phone
+	Correct response: '(944)151-8195'
+	Student response: '(944)-151-8195'
+incorrect phone
+	Correct response: '(718)328-6845'
+	Student response: '(718)-328-6845'
+incorrect phone
+	Correct response: '(942)302-2138'
+	Student response: '(942)-302-2138'
+incorrect phone
+	Correct response: '(285)166-8480'
+	Student response: '(285)-166-8480'
+incorrect phone
+	Correct response: '(860)164-5983'
+	Student response: '(860)-164-5983'
+incorrect phone
+	Correct response: '(631)881-5105'
+	Student response: '(631)-881-5105'
+incorrect phone
+	Correct response: '(871)750-2196'
+	Student response: '(871)-750-2196'
+incorrect phone
+	Correct response: '(288)320-7922'
+	Student response: '(288)-320-7922'
+incorrect phone
+	Correct response: '(183)497-8027'
+	Student response: '(183)-497-8027'
+incorrect phone
+	Correct response: '(775)170-7540'
+	Student response: '(775)-170-7540'
+incorrect phone
+	Correct response: '(270)507-0037'
+	Student response: '(270)-507-0037'
+incorrect phone
+	Correct response: '(643)196-4399'
+	Student response: '(643)-196-4399'
+incorrect phone
+	Correct response: '(756)882-3909'
+	Student response: '(756)-882-3909'
+incorrect phone
+	Correct response: '(376)601-0923'
+	Student response: '(376)-601-0923'
+incorrect phone
+	Correct response: '(412)551-0870'
+	Student response: '(412)-551-0870'
+incorrect phone
+	Correct response: '(198)939-0718'
+	Student response: '(198)-939-0718'
+incorrect phone
+	Correct response: '(915)852-1467'
+	Student response: '(915)-852-1467'
+incorrect phone
+	Correct response: '(817)807-2007'
+	Student response: '(817)-807-2007'
+incorrect phone
+	Correct response: '(566)218-6873'
+	Student response: '(566)-218-6873'
+incorrect phone
+	Correct response: '(415)568-6789'
+	Student response: '(415)-568-6789'
+incorrect phone
+	Correct response: '(244)426-7526'
+	Student response: '(244)-426-7526'
+incorrect phone
+	Correct response: '(655)463-3591'
+	Student response: '(655)-463-3591'
+incorrect phone
+	Correct response: '(835)350-8059'
+	Student response: '(835)-350-8059'
+incorrect phone
+	Correct response: '(255)203-3744'
+	Student response: '(255)-203-3744'
+incorrect phone
+	Correct response: '(479)554-2333'
+	Student response: '(479)-554-2333'
+incorrect phone
+	Correct response: '(279)761-2075'
+	Student response: '(279)-761-2075'
+incorrect phone
+	Correct response: '(528)745-4327'
+	Student response: '(528)-745-4327'
+incorrect phone
+	Correct response: '(611)294-7001'
+	Student response: '(611)-294-7001'
+incorrect phone
+	Correct response: '(334)234-6453'
+	Student response: '(334)-234-6453'
+incorrect phone
+	Correct response: '(842)989-5064'
+	Student response: '(842)-989-5064'
+incorrect phone
+	Correct response: '(167)933-5905'
+	Student response: '(167)-933-5905'
+incorrect phone
+	Correct response: '(271)599-0741'
+	Student response: '(271)-599-0741'
+incorrect phone
+	Correct response: '(991)525-3773'
+	Student response: '(991)-525-3773'
+incorrect phone
+	Correct response: '(935)415-4758'
+	Student response: '(935)-415-4758'
+incorrect phone
+	Correct response: '(330)633-1945'
+	Student response: '(330)-633-1945'
+incorrect phone
+	Correct response: '(469)495-9923'
+	Student response: '(469)-495-9923'
+incorrect phone
+	Correct response: '(907)780-9762'
+	Student response: '(907)-780-9762'
+incorrect phone
+	Correct response: '(307)175-1320'
+	Student response: '(307)-175-1320'
+incorrect phone
+	Correct response: '(297)925-8100'
+	Student response: '(297)-925-8100'
+incorrect phone
+	Correct response: '(151)861-1435'
+	Student response: '(151)-861-1435'
+incorrect phone
+	Correct response: '(900)135-9480'
+	Student response: '(900)-135-9480'
+incorrect phone
+	Correct response: '(844)658-1195'
+	Student response: '(844)-658-1195'
+incorrect phone
+	Correct response: '(661)765-8729'
+	Student response: '(661)-765-8729'
+incorrect phone
+	Correct response: '(281)534-0719'
+	Student response: '(281)-534-0719'
+incorrect phone
+	Correct response: '(990)671-2911'
+	Student response: '(990)-671-2911'
+incorrect phone
+	Correct response: '(800)430-6094'
+	Student response: '(800)-430-6094'
+incorrect phone
+	Correct response: '(651)508-6430'
+	Student response: '(651)-508-6430'
+incorrect phone
+	Correct response: '(815)749-5432'
+	Student response: '(815)-749-5432'
+incorrect phone
+	Correct response: '(272)460-0905'
+	Student response: '(272)-460-0905'
+incorrect phone
+	Correct response: '(220)115-1933'
+	Student response: '(220)-115-1933'
+incorrect phone
+	Correct response: '(911)754-6174'
+	Student response: '(911)-754-6174'
+incorrect phone
+	Correct response: '(548)640-2564'
+	Student response: '(548)-640-2564'
+incorrect phone
+	Correct response: '(346)582-1576'
+	Student response: '(346)-582-1576'
+incorrect phone
+	Correct response: '(530)856-4479'
+	Student response: '(530)-856-4479'
+incorrect phone
+	Correct response: '(356)511-5486'
+	Student response: '(356)-511-5486'
+incorrect phone
+	Correct response: '(938)610-4750'
+	Student response: '(938)-610-4750'
+incorrect phone
+	Correct response: '(924)934-6368'
+	Student response: '(924)-934-6368'
+incorrect phone
+	Correct response: '(777)927-8513'
+	Student response: '(777)-927-8513'
+incorrect phone
+	Correct response: '(675)484-2350'
+	Student response: '(675)-484-2350'
+incorrect phone
+	Correct response: '(360)564-9459'
+	Student response: '(360)-564-9459'
+incorrect phone
+	Correct response: '(450)241-6709'
+	Student response: '(450)-241-6709'
+incorrect phone
+	Correct response: '(371)204-9114'
+	Student response: '(371)-204-9114'
+incorrect phone
+	Correct response: '(885)362-1321'
+	Student response: '(885)-362-1321'
+incorrect phone
+	Correct response: '(314)765-4572'
+	Student response: '(314)-765-4572'
+incorrect phone
+	Correct response: '(161)603-8764'
+	Student response: '(161)-603-8764'
+incorrect phone
+	Correct response: '(562)124-2279'
+	Student response: '(562)-124-2279'
+incorrect phone
+	Correct response: '(723)805-8255'
+	Student response: '(723)-805-8255'
+incorrect phone
+	Correct response: '(997)837-2547'
+	Student response: '(997)-837-2547'
+incorrect phone
+	Correct response: '(661)417-7200'
+	Student response: '(661)-417-7200'
+incorrect phone
+	Correct response: '(852)830-3074'
+	Student response: '(852)-830-3074'
+incorrect phone
+	Correct response: '(247)901-3491'
+	Student response: '(247)-901-3491'
+incorrect phone
+	Correct response: '(627)143-3319'
+	Student response: '(627)-143-3319'
+incorrect phone
+	Correct response: '(718)171-6190'
+	Student response: '(718)-171-6190'
+incorrect phone
+	Correct response: '(459)122-9288'
+	Student response: '(459)-122-9288'
+incorrect phone
+	Correct response: '(895)738-6111'
+	Student response: '(895)-738-6111'
+incorrect phone
+	Correct response: '(354)134-1117'
+	Student response: '(354)-134-1117'
+incorrect phone
+	Correct response: '(966)477-9506'
+	Student response: '(966)-477-9506'
+incorrect phone
+	Correct response: '(772)173-1655'
+	Student response: '(772)-173-1655'
+incorrect phone
+	Correct response: '(771)734-6880'
+	Student response: '(771)-734-6880'
+incorrect phone
+	Correct response: '(412)786-7018'
+	Student response: '(412)-786-7018'
+incorrect phone
+	Correct response: '(703)983-7401'
+	Student response: '(703)-983-7401'
+incorrect phone
+	Correct response: '(177)408-7178'
+	Student response: '(177)-408-7178'
+incorrect phone
+	Correct response: '(166)158-8877'
+	Student response: '(166)-158-8877'
+incorrect phone
+	Correct response: '(956)648-4054'
+	Student response: '(956)-648-4054'
+incorrect phone
+	Correct response: '(642)839-8307'
+	Student response: '(642)-839-8307'
+incorrect phone
+	Correct response: '(580)702-8220'
+	Student response: '(580)-702-8220'
+incorrect phone
+	Correct response: '(155)688-2980'
+	Student response: '(155)-688-2980'
+incorrect phone
+	Correct response: '(545)259-8318'
+	Student response: '(545)-259-8318'
+incorrect phone
+	Correct response: '(506)748-9270'
+	Student response: '(506)-748-9270'
+incorrect phone
+	Correct response: '(620)715-8040'
+	Student response: '(620)-715-8040'
+incorrect phone
+	Correct response: '(440)138-1064'
+	Student response: '(440)-138-1064'
+incorrect phone
+	Correct response: '(258)371-2833'
+	Student response: '(258)-371-2833'
+incorrect phone
+	Correct response: '(645)742-2965'
+	Student response: '(645)-742-2965'
+incorrect phone
+	Correct response: '(691)782-7812'
+	Student response: '(691)-782-7812'
+incorrect phone
+	Correct response: '(698)786-1507'
+	Student response: '(698)-786-1507'
+incorrect phone
+	Correct response: '(384)441-3698'
+	Student response: '(384)-441-3698'
+Score += 19
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 49/50 = 98.0%
+
+Excellent!
+
+-------------------------------------------------------------------------------
+
