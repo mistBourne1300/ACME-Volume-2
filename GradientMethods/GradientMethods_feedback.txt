@@ -1,0 +1,30 @@
+02/21/22 17:29
+
+Problem 1 (10 points):
+Score += 10
+
+Problem 2 (10 points):
+Score += 10
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (5 points):
+prob4() failed
+	Correct response: [-3482258.          15.017       -0.036       -2.02        -1.033
+       -0.051     1829.156]
+	Student response: [-3482258.021       11.012       -0.096       -1.465       -0.426
+        0.271     1786.712]
+Score += 0
+
+Problems 5 and 6 (10 points):
+Score += 10
+
+Code Quality (5 points):
+Don't forget comments!
+Score += 0
+
+Total score: 40/50 = 80.0%
+
+-------------------------------------------------------------------------------
+
