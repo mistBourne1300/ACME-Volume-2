@@ -30,11 +30,14 @@ def steepest_descent(f, df, x0, tol=1e-5, maxiter=100):
         (bool): Whether or not the algorithm converged.
         (int): The number of iterations computed.
     """
+    # while we still have iterations to use
     for i in range(maxiter):
         df0 = df(x0)
         phi = lambda a: f(x0 - a*df0.T)
+        # use scipy's line search
         alpha = opium.minimize_scalar(phi).x
         x1 = x0 - alpha*df0.T
+        # if the point is close enough, return
         if la.norm(df0.T) < tol:
             return x1, True, i
 
@@ -127,8 +130,8 @@ def prob4(filename="linregression.txt",
     """
     dat = np.loadtxt("linregression.txt")
     y = dat[:,0]
-    A = dat
-    A[:,0] = 1
+    A = np.ones_like(dat)
+    A[:,1:] = dat[:,1:]
     Q = A.T@A
     newbie = A.T@y
     return conjugate_gradient(Q,newbie,x0)[0]
