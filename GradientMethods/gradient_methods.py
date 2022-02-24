@@ -61,10 +61,12 @@ def conjugate_gradient(Q, b, x0, tol=1e-4):
         (bool): Whether or not the algorithm converged.
         (int): The number of iterations computed.
     """
+    # get dimension of the problem
     n = Q.shape[0]
     r0 = Q@x0 - b
     d0 = -r0
     k = 0
+    # while we still have iterations and the difference between iterations isnt too small
     while la.norm(r0) > tol and k < n:
         ak = (r0.T@r0)/(d0.T@Q@d0)
         x1 = x0 + ak*d0
@@ -76,6 +78,7 @@ def conjugate_gradient(Q, b, x0, tol=1e-4):
         r0 = r1
         x0 = x1
         d0 = d1
+    # return all the things
     return x1, (k <= n), k
 
 
@@ -105,11 +108,13 @@ def nonlinear_conjugate_gradient(f, df, x0, tol=1e-5, maxiter=100):
     x1 = x0 + a0*d0
     x0 = x1
     k = 1
+    # while we still have iterations and the difference between iterations isnt too small
     while la.norm(r0) >= tol and k < maxiter:
         r1 = -df(x0).T
         beta = (r1.T@r1)/(r0.T@r0)
         d1 = r1 + beta*d0
         fun = lambda a: f(x0 + a*d1)
+        # get the optimum alpha using scipy
         a0 = opium.minimize_scalar(fun).x
         x1 = x0 + a0*d1
         k += 1
@@ -117,7 +122,7 @@ def nonlinear_conjugate_gradient(f, df, x0, tol=1e-5, maxiter=100):
         r0 = r1
         d0 = d1
         x0 = x1
-
+    # return all the things
     return x1, (k < maxiter), k
 
 
@@ -128,12 +133,15 @@ def prob4(filename="linregression.txt",
     the data from the given file, the given initial guess, and the default
     tolerance. Return the solution to the corresponding Normal Equations.
     """
+    # load the data
     dat = np.loadtxt("linregression.txt")
     y = dat[:,0]
+    # create the A matrix as specified
     A = np.ones_like(dat)
     A[:,1:] = dat[:,1:]
     Q = A.T@A
     newbie = A.T@y
+    # compute conjugate gradient and return
     return conjugate_gradient(Q,newbie,x0)[0]
 
 
@@ -151,7 +159,9 @@ class LogisticRegression1D:
             y ((n,) ndarray): An array of n outcome variables.
             guess (array): Initial guess for beta.
         """
+        # the negative log likelihood function
         neg_log_like = lambda b: anp.sum([anp.log(1+anp.exp(-(b[0] + b[1]*x[i]))) + (1-y[i])*(b[0]+b[1]*x[i]) for i in range(len(x))])
+        # compute the optimal beta values and save as class variables
         beta = nonlinear_conjugate_gradient(neg_log_like, grad(neg_log_like), guess)[0]
         self.b0 = beta[0]
         self.b1 = beta[1]
@@ -163,6 +173,7 @@ class LogisticRegression1D:
         Parameters:
             x (float): a predictor variable with an unknown label.
         """
+        # return the predicted value
         return 1/(1+np.exp(-(self.b0 + self.b1*x)))
 
 
@@ -178,12 +189,15 @@ def prob6(filename="challenger.npy", guess=np.array([20., -1.])):
         guess (array): The initial guess for beta.
                         Defaults to [20., -1.]
     """
+    # load data
     dat = np.load("challenger.npy")
     temperature = dat[:,0]
     damage = dat[:,1]
+    # create and fit the logistic regression class to the data
     infinite_regret = LogisticRegression1D()
     infinite_regret.fit(temperature, damage, guess)
     domain = np.linspace(30,100)
+    # plot everything
     plt.plot(domain, infinite_regret.predict(domain), color = 'goldenrod')
     plt.plot(temperature, damage, 'bo')
     plt.plot(31., infinite_regret.predict(31.), 'ro')
@@ -194,6 +208,7 @@ def prob6(filename="challenger.npy", guess=np.array([20., -1.])):
 
     plt.show()
 
+    # return the predicted probability
     return infinite_regret.predict(31.)
 
 
@@ -218,8 +233,9 @@ if __name__ == "__main__":
     # print(nonlinear_conjugate_gradient(rosy, grad(rosy), x0rosy, maxiter = 500))
 
     # PROBLEM 4
-    os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/GradientMethods")
-    print(prob4())
+    # os.chdir("/Users/chase/Desktop/Math321Volume2/byu_vol2/GradientMethods")
+    # print(prob4())
 
     # # PROBLEMS 5 and 6
     # print(prob6())
+    pass
