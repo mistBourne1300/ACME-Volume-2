@@ -135,15 +135,20 @@ def prob6(filename='productMix.npz'):
     m = dat['m']
     d = dat['d']
 
-    A = np.vstack((_A_, np.identity(m)))
+    A = np.vstack((_A_, np.identity(n)))
     b = np.concatenate((m,d))
     c = -p
 
     minval, dependent, independent = SimplexSolver(c,A,b).solve()
-    return np.array([dependent[i] for i in range(len(d))])
-
-
-    raise NotImplementedError("Problem 6 Incomplete")
+    prod_soln = np.zeros_like(d)
+    max_index = len(d) - 1
+    for i in dependent.keys():
+        if i > max_index: continue
+        prod_soln[i] = dependent[i]
+    for i in independent.keys():
+        if i > max_index: continue
+        prod_soln[i] = independent[i]
+    return prod_soln
 
 if __name__ == "__main__":
     A = np.array([[1,-1],[3,1],[4,3]])
@@ -156,4 +161,4 @@ if __name__ == "__main__":
     print(simplexsolverclassthing.solve())
     print(simplexsolverclassthing.D)
     print("\n\n\n\n")
-    prob6() # does not work
+    print(prob6())
