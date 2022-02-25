@@ -74,7 +74,7 @@ class SimplexSolver(object):
         
         mask = self.D[1:,index] >= 0 
         ratios = -self.D[1:,0] / self.D[1:,index]
-        ratios[mask] = np.max(ratios)
+        ratios[mask] = np.inf
         return np.argmin(ratios) +1
 
     # Problem 4
@@ -92,7 +92,7 @@ class SimplexSolver(object):
 
 
     # Problem 5
-    def solve(self):
+    def solve(self, v = False):
         """Solve the linear optimization problem.
 
         Returns:
@@ -101,7 +101,9 @@ class SimplexSolver(object):
             (dict): The nonbasic variables and their values.
         """
         while np.min(self.D[0,1:]) < 0:
+            if v: print(self.D, end = "\n\n")
             self.pivot()
+        if v: print(self.D)
         # min_val = self.D[0,0]
         independent = dict()
         dependent = dict()
@@ -109,7 +111,7 @@ class SimplexSolver(object):
             if self.D[0,j] == 0:
                 # dependent
                 index = self.D[:,j].tolist().index(-1)
-                print(index)
+                # print(index)
                 dependent[j] = self.D[index,0]
             elif self.D[0,j] > 0:
                 # independent
@@ -140,14 +142,14 @@ def prob6(filename='productMix.npz'):
     c = -p
 
     minval, dependent, independent = SimplexSolver(c,A,b).solve()
-    prod_soln = np.zeros_like(d)
+    prod_soln = np.zeros(len(d))
     max_index = len(d) - 1
     for i in dependent.keys():
         if i > max_index: continue
         prod_soln[i] = dependent[i]
     for i in independent.keys():
         if i > max_index: continue
-        prod_soln[i] = independent[i]
+        prod_soln[i] = 0
     return prod_soln
 
 if __name__ == "__main__":
@@ -158,7 +160,7 @@ if __name__ == "__main__":
     simplexsolverclassthing = SimplexSolver(c,A,b)
     # print(simplexsolverclassthing.D)
     # print(simplexsolverclassthing._pivot_col(), simplexsolverclassthing._pivot_row(1))
-    print(simplexsolverclassthing.solve())
-    print(simplexsolverclassthing.D)
-    print("\n\n\n\n")
+    print(simplexsolverclassthing.solve(v=True))
+    # print(simplexsolverclassthing.D)
+    # print("\n\n\n\n")
     print(prob6())
