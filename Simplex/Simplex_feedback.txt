@@ -1,0 +1,28 @@
+02/28/22 20:33
+
+Problems 1-5 (35 points):
+Incorrect Dictionary
+	Correct response: {2: 2.0, 3: 5.0, 4: 7.0}
+	Student response: {3: 2.0, 4: 5.0, 5: 7.0}
+Incorrect Dictionary
+	Correct response: {0: 0, 1: 0}
+	Student response: {1: 0, 2: 0}
+Score += 29
+
+Problem 6 (10 points):
+Incorrect maximizer
+	Correct response: 7453.596491228071
+	Student response: 6013.0701754385955
+Score += 0
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 34/50 = 68.0%
+
+
+Comments:
+	Maximizer: np.load('productMix.npz')['p'].dot(prob6()) check your solution for problem 6
+
+-------------------------------------------------------------------------------
+
