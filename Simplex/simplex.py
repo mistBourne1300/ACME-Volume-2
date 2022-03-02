@@ -62,7 +62,7 @@ class SimplexSolver(object):
         for i in range(1,len(self.D[0])):
             if self.D[0][i] < 0:
                 return i
-        return -1
+        return None
 
     # Problem 3b
     def _pivot_row(self, index):
@@ -112,10 +112,10 @@ class SimplexSolver(object):
                 # dependent
                 index = self.D[:,j].tolist().index(-1)
                 # print(index)
-                dependent[j] = self.D[index,0]
+                dependent[j-1] = self.D[index,0]
             elif self.D[0,j] > 0:
                 # independent
-                independent[j] = 0
+                independent[j-1] = 0
             else:
                 raise RuntimeError("problem solving failed")
         return self.D[0,0], dependent, independent
