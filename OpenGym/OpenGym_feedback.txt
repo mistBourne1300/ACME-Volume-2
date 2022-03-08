@@ -1,0 +1,25 @@
+03/07/22 19:35
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (15 points):
+Score += 15
+
+Problem 5 (10 points):
+Problem 5 didn't finish running, keyboardinterrupt error
+Score += 0
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 40/50 = 80.0%
+
+-------------------------------------------------------------------------------
+
