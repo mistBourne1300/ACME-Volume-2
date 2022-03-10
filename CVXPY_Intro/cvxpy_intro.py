@@ -25,12 +25,11 @@ def prob1():
     x = cp.Variable(3,nonneg = True)
     c = np.array([2,1,3])
     objective = cp.Minimize(c.T @ x)
-    A = np.array([  [1,2,0],
-                    [0,2,-4],
-                    [-2,-10,-3]])
-    b = np.array([3,1,-12])
+    A = np.array([1,2,0])
+    B = np.array([0,2,-4])
+    C = np.array([2,10,3])
     P = np.eye(3)
-    constraints = [A@x <= b, P@x >= 0]
+    constraints = [A@x <= 3, B@x <= 1, C@x <= 12, P@x >= 0]
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return np.ravel(x.value), opium
@@ -128,7 +127,6 @@ def prob5(A, b):
     opium = problem.solve()
     return x.value, opium
 
-
 # Problem 6
 def prob6():
     """Solve the college student food problem. Read the data in the file 
@@ -157,9 +155,6 @@ def prob6():
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return x.value, opium
-
-
-
 
 
 if __name__ == "__main__":
