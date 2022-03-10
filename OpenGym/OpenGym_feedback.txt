@@ -23,3 +23,30 @@ Total score: 40/50 = 80.0%
 
 -------------------------------------------------------------------------------
 
+03/10/22 10:47
+
+Problem 1 (5 points):
+Score += 5
+
+Problem 2 (5 points):
+Score += 5
+
+Problem 3 (10 points):
+Score += 10
+
+Problem 4 (15 points):
+Score += 15
+
+Problem 5 (10 points):
+the q-table reward should be between 7.9 and 8.0
+Score += 5
+
+Code Quality (5 points):
+Score += 5
+
+Total score: 45/50 = 90.0%
+
+Great job!
+
+-------------------------------------------------------------------------------
+
