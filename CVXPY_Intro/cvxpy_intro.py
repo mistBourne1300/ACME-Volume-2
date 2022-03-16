@@ -29,7 +29,7 @@ def prob1():
     B = np.array([0,2,-4])
     C = np.array([2,10,3])
     P = np.eye(3)
-    constraints = [A@x <= 3, B@x <= 1, C@x <= 12, P@x >= 0]
+    constraints = [A@x <= 3, B@x <= 1, C@x >= 12, P@x >= 0]
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return np.ravel(x.value), opium
