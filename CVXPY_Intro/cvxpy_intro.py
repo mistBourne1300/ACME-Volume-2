@@ -38,9 +38,6 @@ def prob1():
     P = np.eye(3)
     constraints = [A@x <= b, P@x >= 0]
 
-    print(c@[0., 1.186, 0.047])
-    print(A@[0., 1.186, 0.047])
-
     # initialize problem and solve
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
