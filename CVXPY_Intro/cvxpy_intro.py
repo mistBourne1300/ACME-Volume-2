@@ -22,14 +22,26 @@ def prob1():
         The optimizer x (ndarray)
         The optimal value (float)
     """
+    # create variable
     x = cp.Variable(3,nonneg = True)
+
+    # define objective
     c = np.array([2,1,3])
+    
     objective = cp.Minimize(c.T @ x)
-    A = np.array([1,2,0])
-    B = np.array([0,2,-4])
-    C = np.array([2,10,3])
+
+    # create constraints
+    A = np.array([  [1,2,0],
+                    [0,1,-4],
+                    [-2,-10,-3]])
+    b = np.array([3,1,-12])
     P = np.eye(3)
-    constraints = [A@x <= 3, B@x <= 1, C@x >= 12, P@x >= 0]
+    constraints = [A@x <= b, P@x >= 0]
+
+    print(c@[0., 1.186, 0.047])
+    print(A@[0., 1.186, 0.047])
+
+    # initialize problem and solve
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return np.ravel(x.value), opium
@@ -50,9 +62,17 @@ def l1Min(A, b):
         The optimal value (float)
     """
     n = A.shape[1]
+
+    # create variable
     x = cp.Variable(n)
+
+    # define objective
     objective = cp.Minimize(cp.norm(x,1))
+
+    # create constraints
     constraints = [A@x == b]
+
+    # initialize problem and solve
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return np.ravel(x.value), opium
@@ -66,9 +86,14 @@ def prob3():
         The optimizer x (ndarray)
         The optimal value (float)
     """
+    # create variable
     x = cp.Variable(6,nonneg = True)
+
+    # define objective
     c = np.array([4,7,6,8,8,9])
     objective = cp.Minimize(c.T @ x)
+
+    # create constraints
     Supply = np.array([ [1,1,0,0,0,0],
                         [0,0,1,1,0,0],
                         [0,0,0,0,1,1]])
@@ -80,6 +105,8 @@ def prob3():
     
     P = np.eye(6)
     constraints = [Supply@x == sup_remum_, Demand@x == dem_apples, P@x >= 0]
+
+    # initialize problem and solve
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return np.ravel(x.value), opium
@@ -94,11 +121,16 @@ def prob4():
         The optimizer x (ndarray)
         The optimal value (float)
     """
+    # create variable
     x = cp.Variable(3)
+
+    # create constraints
     Q = np.array([  [3,2,1],
                     [2,4,2],
                     [1,2,3]])
     r = np.array([3,0,1])
+
+    # initialize problem and solve
     problem = cp.Problem(cp.Minimize(.5 * cp.quad_form(x,Q) + r.T@x))
     opium = problem.solve()
     return x.value, opium
@@ -118,11 +150,18 @@ def prob5(A, b):
         The optimal value (float)
     """
     n = A.shape[1]
+    # create variable
     x = cp.Variable(n, nonneg = True)
+
+    # define objective
+    objective = cp.Minimize(cp.norm(A@x - b, 2))
+
+    # create constraints
     I = np.eye(n)
     one = np.ones(n)
-    objective = cp.Minimize(cp.norm(A@x - b, 2))
     constraints = [one@x == 1, I@x >= 0]
+
+    # initialize problem and solve
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
     return x.value, opium
@@ -139,7 +178,10 @@ def prob6():
         The optimizer x (ndarray)
         The optimal value (float)
     """
+    # load data
     dat = np.load('food.npy', allow_pickle=True)
+
+    # create matrices for each of the food types
     price = dat[:,0]
     servings_per_container = dat[:,1]
     calories_per_container = servings_per_container * dat[:,2]
@@ -148,9 +190,17 @@ def prob6():
     calcium_per_container = servings_per_container * dat[:,5]
     fiber_per_container = servings_per_container * dat[:,6]
     protien_per_container = servings_per_container * dat[:,7]
+
+    # eye matrix for the xi >= constraint
     I = np.eye(len(price))
+
+    # create variable
     x = cp.Variable(len(price), nonneg = True)
+
+    # define objective
     objective = cp.Minimize(price.T@x)
+
+    # initialize problem and solve
     constraints = [calories_per_container.T@x <= 2000, fat_per_container.T@x <= 65, sugar_per_container.T@x <= 50, calcium_per_container.T@x >= 1000, fiber_per_container.T@x >= 25, protien_per_container.T@x >= 46, I@x >= 0]
     problem = cp.Problem(objective, constraints)
     opium = problem.solve()
