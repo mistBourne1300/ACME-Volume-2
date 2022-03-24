@@ -5,6 +5,8 @@
 <Date>
 """
 
+from re import search
+from tracemalloc import start
 import numpy as np
 from scipy import linalg as la
 from scipy.stats import linregress
@@ -80,9 +82,87 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         x ((n, ) ndarray): The optimal point.
         val (float): The minimum value of the objective function.
     """
-    raise NotImplementedError("Problems 1-4 Incomplete")
+    m,n = A.shape
+    def get_F(x,lamb,mu):
+        first_comp = A.T@lamb + mu - c
+        second_comp = A@x-b
+        third_comp = np.diag(mu)@x
+        return np.concatenate((first_comp,second_comp,third_comp))
+
+    def DF_top():
+        zero11 = np.zeros((n,n))
+        zero22 = np.zeros((m,m))
+        zero23 = np.zeros((m,n))
+        I = np.eye(n)
+        col1 = np.vstack((zero11,A))
+        col2 = np.vstack((A.T,zero22))
+        col3 = np.vstack((I,zero23))
+        return np.hstack((col1,col2,col3))
+    
+    derivative_of_F_top = DF_top()
+
+    def DF_bottom(mu,x):
+        M = np.diag(mu)
+        X = np.diag(x)
+        zero32 = np.zeros((n,m))
+        return np.hstack((M,zero32,X))
+
+    
+    def search_duality(F,x,mu):
+        nu = x.T@mu/n
+        DF = np.vstack((derivative_of_F_top,DF_bottom(mu,x)))
+        right_right_side = np.concatenate((np.zeros(n),np.zeros(m),.1*nu*np.ones(n)))
+        right_side = -F + right_right_side
+        delta = la.lu_solve(la.lu_factor(DF),right_side)
+        return delta, nu
+    
+    def step_length(delta,x,mu):
+        alpha_max = np.min(-mu/delta[-n:])
+        if alpha_max<0: alpha_max = 1
+        alpha_max = np.min([1,0.95*alpha_max])
+
+        delta_max = np.min(-x/delta[:n])
+        if delta_max < 0: delta_max = 1
+        delta_max = np.min([1, 0.95*delta_max])
+        print("alpha_max, delta_max")
+        print(alpha_max, delta_max)
+        return alpha_max, delta_max
+
+    x,lamb,mu = starting_point(A,b,c)
+    for i in range(niter):
+        F = get_F(x,lamb,mu)
+        delta,nu = search_duality(F,x,mu)
+        alpha_max, delta_max = step_length(delta, x, mu)
+        x += delta_max*delta[:n]
+        lamb += alpha_max*delta[n:-n]
+        mu += alpha_max*delta[-n:]
+        if np.abs(nu)<tol:
+            return x, c.T@x
+        
+    return x,c.T@x
 
 
 def leastAbsoluteDeviations(filename='simdata.txt'):
     """Generate and show the plot requested in the lab."""
+    x,y = [],[]
+    with open(filename) as file:
+        for line in file.readlines():
+            dat = line.strip.split()
+            y.append(dat[0])
+            x.append(dat[1])
+    
+    
+
+
     raise NotImplementedError("Problem 5 Incomplete")
+
+
+if __name__ == "__main__":
+    j,k = 3,3
+    A,b,c,x = randomLP(j,k)
+    point, value = interiorPoint(A,b,c)
+    print(f'optimal x: {x}\nreturned x: {point[:k]}')
+    print(f'close?: {np.allclose(x,point[:k])}')
+    print(f'optimal value: {c[:k].T@x}\nreturned value: {value}')
+
+    leastAbsoluteDeviations()
