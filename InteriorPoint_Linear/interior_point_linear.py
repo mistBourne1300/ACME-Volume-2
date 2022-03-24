@@ -124,8 +124,6 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         delta_max = np.min(-x/delta[:n])
         if delta_max < 0: delta_max = 1
         delta_max = np.min([1, 0.95*delta_max])
-        print("alpha_max, delta_max")
-        print(alpha_max, delta_max)
         return alpha_max, delta_max
 
     x,lamb,mu = starting_point(A,b,c)
@@ -144,17 +142,38 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
 
 def leastAbsoluteDeviations(filename='simdata.txt'):
     """Generate and show the plot requested in the lab."""
-    x,y = [],[]
-    with open(filename) as file:
-        for line in file.readlines():
-            dat = line.strip.split()
-            y.append(dat[0])
-            x.append(dat[1])
-    
-    
+    data = np.loadtxt(filename)
+    m,n = data.shape
+    n-=1
+    c = np.zeros(3*m + 2*(n+1))
+    c[:m] = 1
+    y = np.empty(2*m)
+    y[::2] = -data[:, 0]
+    y[1::2] = data[:, 0]
+    x = data[:, 1:]
 
+    A = np.ones((2*m, 3*m + 2*(n+1)))
+    A[::2, :m] = np.eye(m)
+    A[1::2,:m] = np.eye(m)
+    A[::2, m:m+n] = -x
+    A[1::2, m:m+n] = x
+    A[::2, m+n:m + 2*n] = x
+    A[1::2, m+n:m + 2*n] = -x
+    A[::2, m + 2*n] = -1
+    A[1::2, m + 2*n + 1] = -1
+    A[:, m+2*n+2:] = -np.eye(2*m, 2*m)
+    sol = interiorPoint(A,y,c,niter = 10)[0]
+    beta = sol[m:m+n] - sol[m+n:m+2*n]
+    b = sol[m+2*n] - sol[m+2*n+1]
+    print(f'beta: {beta}')
+    print(f'b: {b}')
 
-    raise NotImplementedError("Problem 5 Incomplete")
+    line = lambda x: beta*x + b
+    plt.plot(data[:,0], data[:,1], 'r.')
+    domain = np.linspace(np.min(data[:,1]), np.max(data[:,0]))
+    plt.plot(domain, line(domain))
+    plt.title('LAD for Plotted Points')
+    plt.show()
 
 
 if __name__ == "__main__":
@@ -163,6 +182,6 @@ if __name__ == "__main__":
     point, value = interiorPoint(A,b,c)
     print(f'optimal x: {x}\nreturned x: {point[:k]}')
     print(f'close?: {np.allclose(x,point[:k])}')
-    print(f'optimal value: {c[:k].T@x}\nreturned value: {value}')
+    print(f'optimal value: {c[:k].T@x}\nreturned value: {value}\n\n')
 
     leastAbsoluteDeviations()
