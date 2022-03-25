@@ -169,8 +169,8 @@ def leastAbsoluteDeviations(filename='simdata.txt'):
     print(f'b: {b}')
 
     line = lambda x: beta*x + b
-    plt.plot(data[:,0], data[:,1], 'r.')
-    domain = np.linspace(np.min(data[:,1]), np.max(data[:,0]))
+    plt.plot(data[:,1], data[:,0], 'r.')
+    domain = np.linspace(np.min(data[:,1]), np.max(data[:,1]))
     plt.plot(domain, line(domain))
     plt.title('LAD for Plotted Points')
     plt.show()
