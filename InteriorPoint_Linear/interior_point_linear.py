@@ -82,13 +82,17 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         x ((n, ) ndarray): The optimal point.
         val (float): The minimum value of the objective function.
     """
+    # get shape
     m,n = A.shape
+
+    # helper function to define F
     def get_F(x,lamb,mu):
         first_comp = A.T@lamb + mu - c
         second_comp = A@x-b
         third_comp = np.diag(mu)@x
         return np.concatenate((first_comp,second_comp,third_comp))
 
+    # get the top of DF
     def DF_top():
         zero11 = np.zeros((n,n))
         zero22 = np.zeros((m,m))
@@ -99,15 +103,19 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         col3 = np.vstack((I,zero23))
         return np.hstack((col1,col2,col3))
     
+    # define DF_top
     derivative_of_F_top = DF_top()
 
+    # helper function to define DF_bottom
+    # this is the only DF_* function needed inside the for loop
     def DF_bottom(mu,x):
         M = np.diag(mu)
         X = np.diag(x)
         zero32 = np.zeros((n,m))
         return np.hstack((M,zero32,X))
 
-    
+    # return the search direction and duality measure
+    # given F, x, and mu
     def search_duality(F,x,mu):
         nu = x.T@mu/n
         DF = np.vstack((derivative_of_F_top,DF_bottom(mu,x)))
@@ -116,6 +124,7 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         delta = la.lu_solve(la.lu_factor(DF),right_side)
         return delta, nu
     
+    # get the step length given delta, x, and mu
     def step_length(delta,x,mu):
         alpha_max = np.min(-mu/delta[-n:])
         if alpha_max<0: alpha_max = 1
@@ -126,11 +135,17 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
         delta_max = np.min([1, 0.95*delta_max])
         return alpha_max, delta_max
 
+    # use the starting point function to get a valid starting point
     x,lamb,mu = starting_point(A,b,c)
     for i in range(niter):
+        # get F
         F = get_F(x,lamb,mu)
+        # get search direction and duality
         delta,nu = search_duality(F,x,mu)
+        # get alpha_max and delta_max
         alpha_max, delta_max = step_length(delta, x, mu)
+        # update x, lamb, and mu according to the search direction
+        #  and alpha_max and delta_max
         x += delta_max*delta[:n]
         lamb += alpha_max*delta[n:-n]
         mu += alpha_max*delta[-n:]
@@ -142,7 +157,9 @@ def interiorPoint(A, b, c, niter=20, tol=1e-16, verbose=False):
 
 def leastAbsoluteDeviations(filename='simdata.txt'):
     """Generate and show the plot requested in the lab."""
+    # get data
     data = np.loadtxt(filename)
+    # get shape and organize data into constraints
     m,n = data.shape
     n-=1
     c = np.zeros(3*m + 2*(n+1))
@@ -165,19 +182,25 @@ def leastAbsoluteDeviations(filename='simdata.txt'):
     sol = interiorPoint(A,y,c,niter = 10)[0]
     beta = sol[m:m+n] - sol[m+n:m+2*n]
     b = sol[m+2*n] - sol[m+2*n+1]
-    print(f'beta: {beta}')
-    print(f'b: {b}')
+    # print(f'beta: {beta}')
+    # print(f'b: {b}')
 
+
+    # plot data and the lines for LAD and Least Squares
     line = lambda x: beta*x + b
+    slope, intercept = linregress(data[:,1], data[:,0])[:2]
+    least_squares = lambda x: x*slope + intercept
     plt.plot(data[:,1], data[:,0], 'r.')
     domain = np.linspace(np.min(data[:,1]), np.max(data[:,1]))
-    plt.plot(domain, line(domain))
+    plt.plot(domain, line(domain),label = "LAD")
+    plt.plot(domain, least_squares(domain), label = "Least Squares")
     plt.title('LAD for Plotted Points')
+    plt.legend()
     plt.show()
 
 
 if __name__ == "__main__":
-    j,k = 3,3
+    j,k = 20,10
     A,b,c,x = randomLP(j,k)
     point, value = interiorPoint(A,b,c)
     print(f'optimal x: {x}\nreturned x: {point[:k]}')
