@@ -155,7 +155,7 @@ def find_policy(T, N, B, u=np.sqrt):
 
 if __name__ == "__main__":
     print("PROBLEM 1:")
-    print(calc_stopping(7))
+    print(calc_stopping(50))
 
     print("\n\nPROBLEM 2:")
     start = time.time()
@@ -165,8 +165,8 @@ if __name__ == "__main__":
     print("\nPROBLEM 3:")
     print(get_consumption(10, lambda x: x))
 
-    T = 6
-    N = 50
+    T = 3
+    N = 10
     B = .75
     u = lambda x: np.sqrt(x)
     betas = np.array([B**i for i in range(T+1)])
