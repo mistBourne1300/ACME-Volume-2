@@ -7,6 +7,7 @@
 
 import gym
 import numpy as np
+import time
 
 # Intialize P for test example
 #Left =0
@@ -213,7 +214,10 @@ def run_simulation(env, policy, render=True, beta = 1.0):
     total_reward = 0
     counter = 0
     while not done:
-        env.render(mode='human')
+        if render:
+            env.render(mode='human')
+            print(counter,end = "\r")
+            time.sleep(.01)
         obs,reward,done,_ = env.step(int(policy[obs]))
         total_reward+= beta**counter*reward
         counter += 1
@@ -245,6 +249,14 @@ if __name__ == "__main__":
     print("\n\nPROBLEM 6:\n")
     print("4x4:")
     vi_policy,vi_mean_reward, pi_value,pi_policy,pi_mean_reward = frozen_lake()
+    print(f"vi_policy: {vi_policy}")
+    print(f'vi_mean_reward: {vi_mean_reward}')
+    print(f'pi_value: {pi_value}')
+    print(f'pi_policy: {pi_policy}')
+    print(f'pi_mean_reward: {pi_mean_reward}')
+
+    print("8x8:")
+    vi_policy,vi_mean_reward, pi_value,pi_policy,pi_mean_reward = frozen_lake(basic_case=False)
     print(f"vi_policy: {vi_policy}")
     print(f'vi_mean_reward: {vi_mean_reward}')
     print(f'pi_value: {pi_value}')
