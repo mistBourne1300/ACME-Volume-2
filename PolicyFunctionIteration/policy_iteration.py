@@ -176,6 +176,8 @@ def frozen_lake(basic_case=True, M=1000, render=False):
         env_name = 'FrozenLake8x8-v1'
     vi_mean_reward_potatoes = 0
     pi_mean_reward_potatoes = 0
+    vi_reward_potatoes = []
+    pi_reward_potatoes = []
     with gym.make(env_name) as env:
         num_states = env.observation_space.n
         num_actions = env.action_space.n
@@ -183,6 +185,14 @@ def frozen_lake(basic_case=True, M=1000, render=False):
         pi_value,pi_policy,pi_k = policy_iteration(dict_P,num_states,num_actions)
         vi_value,vi_k = value_iteration(dict_P,num_states,num_actions)
         vi_policy = extract_policy(dict_P,num_states,num_actions,vi_value)
+
+        for i in range(M):
+            print(f'{i}/{M} ({100*i/M:.1f}%)', end = "\r")
+            vi_reward_potatoes.append(run_simulation(env,vi_policy,render))
+            pi_reward_potatoes.append(run_simulation(env,pi_policy,render))
+    
+    vi_mean_reward_potatoes = np.mean(vi_reward_potatoes)
+    pi_mean_reward_potatoes = np.mean(pi_reward_potatoes)
     return vi_policy,vi_mean_reward_potatoes, pi_value, pi_policy, pi_mean_reward_potatoes
 
 # Problem 6
@@ -198,7 +208,17 @@ def run_simulation(env, policy, render=True, beta = 1.0):
     Returns:
     total reward (float): Value of the total reward received under policy.
     """
-    raise NotImplementedError("Problem 6 Incomplete")
+    obs = env.reset()
+    done = False
+    total_reward = 0
+    counter = 0
+    while not done:
+        env.render(mode='human')
+        obs,reward,done,_ = env.step(int(policy[obs]))
+        total_reward+= beta**counter*reward
+        counter += 1
+    return total_reward
+
 
 
 if __name__ == "__main__":
@@ -219,5 +239,14 @@ if __name__ == "__main__":
     print(f'value: {value}')
     print(f'policy: {policy}')
 
-    print("\n\nPROBLEM 5:\n")
-    print(frozen_lake())
+    # print("\n\nPROBLEM 5:\n")
+    # print(frozen_lake())
+
+    print("\n\nPROBLEM 6:\n")
+    print("4x4:")
+    vi_policy,vi_mean_reward, pi_value,pi_policy,pi_mean_reward = frozen_lake()
+    print(f"vi_policy: {vi_policy}")
+    print(f'vi_mean_reward: {vi_mean_reward}')
+    print(f'pi_value: {pi_value}')
+    print(f'pi_policy: {pi_policy}')
+    print(f'pi_mean_reward: {pi_mean_reward}')
