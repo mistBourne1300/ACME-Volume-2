@@ -5,6 +5,9 @@
 <Date>
 """
 
+import gym
+import numpy as np
+
 # Intialize P for test example
 #Left =0
 #Down = 1
@@ -48,7 +51,23 @@ def value_iteration(P, nS ,nA, beta = 1, tol=1e-8, maxiter=3000):
        v (ndarray): The discrete values for the true value function.
        n (int): number of iterations
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    V_old = np.zeros(nS)
+    for k in range(maxiter):
+        print(f'{k}: {V_old}')
+        V_new = V_old.copy()
+        for s in range(nS):
+            sa_vector = np.zeros(nA)
+            for a in range(nA):
+                for tuple_info in P[s][a]:
+                    p,s_,u,_ = tuple_info
+
+                    sa_vector[a] += (p * (u + beta * V_old[s_]))
+            V_new[s] = np.max(sa_vector)
+        if np.linalg.norm(V_new - V_old) < tol:
+            return V_new, k
+        V_old = V_new
+    
+    return V_new, k
 
 # Problem 2
 def extract_policy(P, nS, nA, v, beta = 1.0):
@@ -65,10 +84,18 @@ def extract_policy(P, nS, nA, v, beta = 1.0):
     Returns:
         policy (ndarray): which direction to move in from each square.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    policy_vector = np.zeros(nS)
+    for s in range(nS):
+        sa_vector = np.zeros(nA)
+        for a in range(nA):
+            for tuple_info in P[s][a]:
+                p,s_,u,_ = tuple_info
+                sa_vector[a] += (p*(u+beta*v[s_]))
+        policy_vector[s] = np.argmax(sa_vector)
+    return policy_vector
 
 # Problem 3
-def compute_policy_v(P, nS, nA, policy, beta=1.0, tol=1e-8):
+def compute_policy_v(P, nS, nA, policy, beta=1.0, tol=1e-8, maxiter = 3000):
     """Computes the value function for a policy using policy evaluation.
 
     Parameters:
@@ -83,7 +110,21 @@ def compute_policy_v(P, nS, nA, policy, beta=1.0, tol=1e-8):
     Returns:
         v (ndarray): The discrete values for the true value function.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    V_old = np.zeros(nS)
+    for k in range(maxiter):
+        V_new = V_old.copy()
+        for s in range(nS):
+            sa_value = 0
+            a = policy[s]
+            for tuple_info in P[s][a]:
+                p,s_,u,_ = tuple_info
+                sa_value += (p*(u+beta*V_old[s_]))
+            V_new[s] = sa_value
+        if np.linalg.norm(V_new - V_old) < tol:
+            return V_new,k
+        V_old = V_new
+
+    return V_new,k
 
 # Problem 4
 def policy_iteration(P, nS, nA, beta=1, tol=1e-8, maxiter=200):
@@ -103,7 +144,14 @@ def policy_iteration(P, nS, nA, beta=1, tol=1e-8, maxiter=200):
         policy (ndarray): which direction to move in each square.
         n (int): number of iterations
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    policy = np.arange(nS)
+    for k in range(maxiter):
+        value,n = compute_policy_v(P,nS,nA,policy,beta,tol)
+        new_policy = extract_policy(P,nS,nA,value,beta)
+        if np.linalg.norm(new_policy - policy) < tol:
+            break
+        policy = new_policy
+    return value,policy,k
 
 # Problem 5 and 6
 def frozen_lake(basic_case=True, M=1000, render=False):
@@ -121,6 +169,21 @@ def frozen_lake(basic_case=True, M=1000, render=False):
     pi_policy (ndarray): The optimal policy for policy iteration.
     pi_total_rewards (float): The mean expected value for following the policy iteration optimal policy.
     """
+    if basic_case:
+        env_name = 'FrozenLake-v1'
+    else:
+        env_name = 'FrozenLake8x8-v1'
+    vi_mean_reward_potatoes = 0
+    pi_mean_reward_potatoes = 0
+    with gym.make(env_name) as env:
+        num_states = env.nS
+        num_actions = env.nA
+        dict_P = env.P
+        pi_value,pi_policy,pi_k = policy_iteration(dict_P,num_states,num_actions)
+        vi_value,vi_k = value_iteration(dict_P,num_states,num_actions)
+        vi_policy = extract_policy(P,num_states,num_actions,vi_value)
+    return vi_policy,vi_mean_reward_potatoes, pi_value, pi_policy, pi_mean_reward_potatoes
+    
     raise NotImplementedError("Problem 5 Incomplete")
 
 # Problem 6
@@ -137,3 +200,25 @@ def run_simulation(env, policy, render=True, beta = 1.0):
     total reward (float): Value of the total reward received under policy.
     """
     raise NotImplementedError("Problem 6 Incomplete")
+
+
+if __name__ == "__main__":
+    print("PROBLEM 1:\n")
+    v,k = value_iteration(P,4,4)
+    print(v)
+
+    print("\n\nPROBLEM 2:\n")
+    policy = extract_policy(P,4,4,v)
+    print(policy)
+
+    print("\n\nPROBLEM 3:\n")
+    value = compute_policy_v(P,4,4,policy)
+    print(value)
+
+    print("\n\nPROBLEM 4:\n")
+    value,policy,k = policy_iteration(P,4,4)
+    print(f'value: {value}')
+    print(f'policy: {policy}')
+
+    print("\n\nPROBLEM 5:\n")
+    print(frozen_lake())
