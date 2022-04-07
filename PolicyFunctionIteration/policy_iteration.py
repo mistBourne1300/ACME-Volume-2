@@ -53,7 +53,6 @@ def value_iteration(P, nS ,nA, beta = 1, tol=1e-8, maxiter=3000):
     """
     V_old = np.zeros(nS)
     for k in range(maxiter):
-        print(f'{k}: {V_old}')
         V_new = V_old.copy()
         for s in range(nS):
             sa_vector = np.zeros(nA)
@@ -144,7 +143,7 @@ def policy_iteration(P, nS, nA, beta=1, tol=1e-8, maxiter=200):
         policy (ndarray): which direction to move in each square.
         n (int): number of iterations
     """
-    policy = np.arange(nS)
+    policy = np.zeros(nS)
     for k in range(maxiter):
         value,n = compute_policy_v(P,nS,nA,policy,beta,tol)
         new_policy = extract_policy(P,nS,nA,value,beta)
@@ -170,21 +169,21 @@ def frozen_lake(basic_case=True, M=1000, render=False):
     pi_total_rewards (float): The mean expected value for following the policy iteration optimal policy.
     """
     if basic_case:
+        num_states = 16
         env_name = 'FrozenLake-v1'
     else:
+        num_states = 64
         env_name = 'FrozenLake8x8-v1'
     vi_mean_reward_potatoes = 0
     pi_mean_reward_potatoes = 0
     with gym.make(env_name) as env:
-        num_states = env.nS
-        num_actions = env.nA
+        num_states = env.observation_space.n
+        num_actions = env.action_space.n
         dict_P = env.P
         pi_value,pi_policy,pi_k = policy_iteration(dict_P,num_states,num_actions)
         vi_value,vi_k = value_iteration(dict_P,num_states,num_actions)
-        vi_policy = extract_policy(P,num_states,num_actions,vi_value)
+        vi_policy = extract_policy(dict_P,num_states,num_actions,vi_value)
     return vi_policy,vi_mean_reward_potatoes, pi_value, pi_policy, pi_mean_reward_potatoes
-    
-    raise NotImplementedError("Problem 5 Incomplete")
 
 # Problem 6
 def run_simulation(env, policy, render=True, beta = 1.0):
