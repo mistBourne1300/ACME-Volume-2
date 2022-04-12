@@ -121,10 +121,10 @@ def compute_policy_v(P, nS, nA, policy, beta=1.0, tol=1e-8, maxiter = 3000):
                 sa_value += (p*(u+beta*V_old[s_]))
             V_new[s] = sa_value
         if np.linalg.norm(V_new - V_old) < tol:
-            return V_new,k
+            return V_new
         V_old = V_new
 
-    return V_new,k
+    return V_new
 
 # Problem 4
 def policy_iteration(P, nS, nA, beta=1, tol=1e-8, maxiter=200):
@@ -146,7 +146,7 @@ def policy_iteration(P, nS, nA, beta=1, tol=1e-8, maxiter=200):
     """
     policy = np.zeros(nS)
     for k in range(maxiter):
-        value,n = compute_policy_v(P,nS,nA,policy,beta,tol)
+        value = compute_policy_v(P,nS,nA,policy,beta,tol)
         new_policy = extract_policy(P,nS,nA,value,beta)
         if np.linalg.norm(new_policy - policy) < tol:
             break
@@ -222,8 +222,6 @@ def run_simulation(env, policy, render=True, beta = 1.0):
         total_reward+= beta**counter*reward
         counter += 1
     return total_reward
-
-
 
 if __name__ == "__main__":
     print("PROBLEM 1:\n")
