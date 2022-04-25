@@ -166,7 +166,7 @@ if __name__ == "__main__":
     print(get_consumption(10, lambda x: x))
 
     T = 3
-    N = 10
+    N = 6
     B = .75
     u = lambda x: np.sqrt(x)
     betas = np.array([B**i for i in range(T+1)])
