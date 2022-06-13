@@ -6,7 +6,7 @@
 """
 
 from email import policy
-from cvxpy import CvxAttr2Constr
+#from cvxpy import CvxAttr2Constr
 import matplotlib.pyplot as plt
 import numpy as np
 import time
@@ -155,7 +155,7 @@ def find_policy(T, N, B, u=np.sqrt):
 
 if __name__ == "__main__":
     print("PROBLEM 1:")
-    print(calc_stopping(50))
+    print(calc_stopping(67))
 
     print("\n\nPROBLEM 2:")
     start = time.time()
